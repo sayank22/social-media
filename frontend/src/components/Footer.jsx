@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import logo from '../assets/tagline.png';
 
 const Footer = () => {
   const navigate = useNavigate
@@ -8,8 +9,8 @@ const Footer = () => {
       <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Home</a></li>
       <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Features</a></li>
       <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">About</a></li>
-    </ul>
-    <p className="text-center text-body-secondary">© 2025 Company, Inc</p>
+    </ul> 
+  <img src={logo} alt="SilentPost Logo" className="taglinelogo" />
   </footer>
   );
 };

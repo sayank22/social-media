@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useRef, useEffect } from "react";
-import { PostList } from "../store/post-list-store";
+import { useRef, useContext } from "react";
+import { PostListContext } from "../store/post-list-store";
 import { toast } from "react-toastify";
 
 const CreatePost = () => {
-  const { addPost } = useContext(PostList);
+  const { addPost } = useContext(PostListContext);
   const navigate = useNavigate();
 
   const photoInputRef = useRef();
@@ -12,63 +12,74 @@ const CreatePost = () => {
   const postBodyElement = useRef();
   const tagsElement = useRef();
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
-      // Redirect user to login page if they are not logged in
-      localStorage.setItem("redirectAfterLogin", "/createpost");
-      navigate("/login");
-    }
-  }, [navigate]);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const photoFile = photoInputRef.current.files[0];
     const postTitle = postTitleElement.current.value.trim();
     const postBody = postBodyElement.current.value.trim();
-    const tags = tagsElement.current.value.trim().split(" ");
+    const tags = tagsElement.current.value.trim().split(" ").filter(tag => tag !== "");
 
-    if (!postTitle || !postBody || tags.length === 0 || tags[0] === "") {
-      alert("Please fill in all required fields.");
+    if (!postTitle || !postBody || tags.length === 0) {
+      toast.error("Please fill in all required fields.");
       return;
     }
 
-    // If there's a photo, convert it to base64
-    if (photoFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const photo = reader.result;
+    try {
+      const token = localStorage.getItem("token");
 
-        addPost({
-          id: Date.now(),
-          title: postTitle,
-          body: postBody,
-          tags,
-          reactions: 0,
-          photo, // include image preview
-        });
+      if (!token) {
+        toast.error("You must be logged in to create a post.");
+        return;
+      }
 
-        // Show success toast
-        toast.success("✅ Post successful!");
-      };
-      reader.readAsDataURL(photoFile);
-    } else {
-      // No photo
-      addPost({
-        id: Date.now(),
+      const formData = {
         title: postTitle,
         body: postBody,
         tags,
         reactions: 0,
         photo: null,
-      });
+      };
 
-      // Show success toast
-      toast.success("✅ Post successful!");
+      if (photoFile) {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          formData.photo = reader.result;
+          await submitPost(formData, token);
+        };
+        reader.readAsDataURL(photoFile);
+      } else {
+        await submitPost(formData, token);
+      }
+    } catch (err) {
+      toast.error("Something went wrong.");
+      console.error(err);
     }
+  };
 
-    // Reset form
+  const submitPost = async (formData, token) => {
+    const res = await fetch("http://localhost:5000/api/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
+      const savedPost = await res.json();
+      addPost(savedPost);
+      toast.success("✅ Post created successfully!");
+      resetForm();
+      navigate("/");
+    } else {
+      const errorData = await res.json();
+      toast.error(`❌ ${errorData.message || "Failed to post."}`);
+    }
+  };
+
+  const resetForm = () => {
     photoInputRef.current.value = "";
     postTitleElement.current.value = "";
     postBodyElement.current.value = "";
@@ -78,9 +89,7 @@ const CreatePost = () => {
   return (
     <form className="create-post" onSubmit={handleSubmit}>
       <div className="mb-3">
-        <label htmlFor="photo" className="form-label">
-          Upload a Photo
-        </label>
+        <label htmlFor="photo" className="form-label">Upload a Photo</label>
         <input
           type="file"
           ref={photoInputRef}

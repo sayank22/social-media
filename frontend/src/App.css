@@ -27,3 +27,21 @@
   margin-top: 50px;
   margin-left: 10%;
 }
+
+.logo {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  background-color: gray;
+}
+
+.taglinelogo {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+}

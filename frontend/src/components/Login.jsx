@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/userApi";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -12,19 +12,30 @@ function Login({ setIsLoggedIn }) {
     e.preventDefault();
     try {
       const response = await login({ email, password });
+      const { token } = response.data;
 
-      // Save user to localStorage
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      // Save token to localStorage (or cookies if you prefer)
+      localStorage.setItem("token", token);
       localStorage.setItem("isLoggedIn", "true");
       setIsLoggedIn(true);
+      
 
       toast.success("✅ Login successful!");
-      console.log("Login successful:", response.data);
 
-      // Redirect back to where user wanted to go
-      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/home";
+      
+
+      // Redirect user
+      
+
+      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
       localStorage.removeItem("redirectAfterLogin");
-      navigate(redirectPath);
+      
+      console.log("✅ redirectAfterLogin in localStorage:", localStorage.getItem("redirectAfterLogin"));
+      console.log("🔐 Token:", localStorage.getItem("token"));
+      console.log("🔓 isLoggedIn:", localStorage.getItem("isLoggedIn"));
+      
+
+      navigate(redirectPath, { replace: true });
 
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);

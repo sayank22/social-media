@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { PostList } from "../store/post-list-store";
+import { PostListContext } from "../store/post-list-store"; // ✅ FIXED NAME
 import { MdDeleteForever } from "react-icons/md";
 
 const Post = ({ post }) => {
-  const { deletePost } = useContext(PostList);
+  const { deletePost } = useContext(PostListContext); // ✅ FIXED CONTEXT
 
   return (
     <div className="card post-card" style={{ width: "27rem" }}>
@@ -12,14 +12,13 @@ const Post = ({ post }) => {
           {post.title}
           <span
             className="badge rounded-pill bg-danger"
-            onClick={() => deletePost(post.id)}
+            onClick={() => deletePost(post._id)}
             style={{ cursor: "pointer" }}
           >
             <MdDeleteForever />
           </span>
         </h5>
 
-        {/* Optional image display */}
         {post.photo && (
           <img
             src={post.photo}
@@ -32,10 +31,8 @@ const Post = ({ post }) => {
           />
         )}
 
-        {/* Post content */}
         <p className="card-text">{post.body}</p>
 
-        {/* Tags display */}
         {Array.isArray(post.tags) &&
           post.tags.map((tag) => (
             <span
@@ -46,11 +43,10 @@ const Post = ({ post }) => {
             </span>
           ))}
 
-        {/* Reactions button */}
-        <button type="button" className="btn btn-primary mt-2">
+        {/* <button type="button" className="btn btn-primary mt-2">
           Reactions{" "}
           <span className="badge text-bg-secondary">{post.reactions}</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );

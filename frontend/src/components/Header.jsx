@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, user }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -10,6 +10,16 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     toast.success("👋 Logged out successfully!");
     setIsLoggedIn(false);
     navigate("/login");
+  };
+
+  const handleCreatePostClick = () => {
+    if (!isLoggedIn) {
+      toast.warn("You must be logged in to create a post.");
+      localStorage.setItem("redirectAfterLogin", "/createpost");
+      navigate("/login");
+    } else {
+      navigate("/createpost");
+    }
   };
 
   return (
@@ -21,13 +31,13 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               href="/"
               className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
             >
-              <h4 className="m-0">MySocial</h4>
+              <h4 className="m-0">SilentPost</h4>
             </a>
 
             <ul className="nav ms-4">
               <li>
                 <button className="nav-link btn btn-link text-white" onClick={() => navigate("/facts")}>
-                  Facts
+                  Features
                 </button>
               </li>
               <li>
@@ -40,9 +50,11 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
           <div className="text-end">
             {isLoggedIn ? (
-              <button className="btn btn-outline-light" onClick={handleLogout}>
-                Logout
-              </button>
+              <>
+                <button className="btn btn-outline-light" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
             ) : (
               <>
                 <button

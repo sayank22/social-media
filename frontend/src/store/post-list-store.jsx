@@ -1,7 +1,7 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 // Create context
-export const PostList = createContext({
+export const PostListContext = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
@@ -9,64 +9,68 @@ export const PostList = createContext({
 
 // Reducer function
 const postListReducer = (currPostList, action) => {
-  if (action.type === "DELETE_POST") {
-    return currPostList.filter(
-      (post) => post.id !== action.payload.postId
-    );
-  } else if (action.type === "ADD_POST") {
-    return [action.payload, ...currPostList];
+  switch (action.type) {
+    case "SET_POSTS":
+      return action.payload;
+    case "ADD_POST":
+      return [action.payload, ...currPostList];
+    case "DELETE_POST":
+      return currPostList.filter((post) => post._id !== action.payload.postId);
+    default:
+      return currPostList;
   }
-  return currPostList;
 };
 
 // Provider component
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    postListReducer,
-    DEFAULT_POST_LIST
-  );
+  const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
-  const addPost = (post) => {
-    dispatchPostList({
-      type: "ADD_POST",
-      payload: post,
-    });
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/posts");
+        const data = await res.json();
+        dispatchPostList({ type: "SET_POSTS", payload: data });
+      } catch (err) {
+        console.error("Failed to fetch posts", err);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  const addPost = async (post) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
+      const savedPost = await res.json();
+      dispatchPostList({ type: "ADD_POST", payload: savedPost });
+    } catch (err) {
+      console.error("Failed to add post", err);
+    }
   };
 
-  const deletePost = (postId) => {
-    dispatchPostList({
-      type: "DELETE_POST",
-      payload: {
-        postId,
-      },
-    });
+  const deletePost = async (postId) => {
+    try {
+      await fetch(`http://localhost:5000/api/posts/${postId}`, {
+        method: "DELETE",
+      });
+      dispatchPostList({ type: "DELETE_POST", payload: { postId } });
+    } catch (err) {
+      console.error("Failed to delete post", err);
+    }
   };
 
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostListContext.Provider value={{ postList, addPost, deletePost }}>
       {children}
-    </PostList.Provider>
+    </PostListContext.Provider>
   );
 };
 
-// Default posts
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Going to Mumbai",
-    body: `Hi friends, I'm going to Mumbai for vacations.`,
-    reactions: 2,
-    userId: "user-9",
-    tags: ["vacation", "mumbai", "enjoy"],
-  },
-  {
-    id: "2",
-    title: "Passed",
-    body: `Passed my B.Tech degree!`,
-    reactions: 5,
-    userId: "user-3",
-    tags: ["graduating", "happy"],
-  },
-];
-
 export default PostListProvider;
+

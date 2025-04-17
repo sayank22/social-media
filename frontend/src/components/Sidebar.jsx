@@ -1,15 +1,23 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import logo from '../assets/logo.png';
 
-const Sidebar = () => {
+const Sidebar = ({ isLoggedIn }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleCreatePostClick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      navigate("/createpost");
+    }
+  };
+
   return (
     <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar" style={{ width: "220px" }}>
-      <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <svg className="bi pe-none me-2" width="25" height="25" aria-hidden="true"><use xlinkHref="#bootstrap"></use></svg>
-        <span className="fs-4">Sidebar</span>
-      </a>
+      <header>
+      <img src={logo} alt="SilentPost Logo" className="logo" />
+    </header>
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item" onClick={() => navigate("/home")}>
