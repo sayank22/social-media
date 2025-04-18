@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Public routes
 router.get("/", getAllPosts);
+router.get("/:id", getPostById);
 
 // Protected routes
 router.post("/", verifyToken, createPost);

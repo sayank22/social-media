@@ -23,6 +23,18 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
+export const getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch post" });
+  }
+};
+
 export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
