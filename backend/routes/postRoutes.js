@@ -5,8 +5,8 @@ import { createPost, getAllPosts, deletePost, getPostById } from "../controllers
 const router = express.Router();
 
 // Public routes
-router.get("/", getAllPosts);
-router.get("/:id", getPostById);
+router.get("/", verifyToken, getAllPosts);
+router.get("/:id", verifyToken, getPostById);
 
 // Protected routes
 router.post("/", verifyToken, createPost);

@@ -28,10 +28,13 @@ const CreatePost = () => {
     try {
       const token = localStorage.getItem("token");
 
+      // Check if token is available
       if (!token) {
         toast.error("You must be logged in to create a post.");
         return;
       }
+
+      console.log("📦 Token being sent:", token);  // Log token for debugging
 
       const formData = {
         title: postTitle,
@@ -43,13 +46,13 @@ const CreatePost = () => {
 
       if (photoFile) {
         const reader = new FileReader();
-        reader.onloadend = async () => {
+        reader.onloadend = () => {
           formData.photo = reader.result;
-          await submitPost(formData, token);
+          submitPost(formData, token);
         };
         reader.readAsDataURL(photoFile);
       } else {
-        await submitPost(formData, token);
+        submitPost(formData, token);
       }
     } catch (err) {
       toast.error("Something went wrong.");
@@ -58,24 +61,29 @@ const CreatePost = () => {
   };
 
   const submitPost = async (formData, token) => {
-    const res = await fetch("http://localhost:5000/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("http://localhost:5000/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (res.ok) {
-      const savedPost = await res.json();
-      addPost(savedPost);
-      toast.success("✅ Post created successfully!");
-      resetForm();
-      navigate("/");
-    } else {
-      const errorData = await res.json();
-      toast.error(`❌ ${errorData.message || "Failed to post."}`);
+      if (res.ok) {
+        const savedPost = await res.json();
+        addPost(savedPost);
+        toast.success("✅ Post created successfully!");
+        resetForm();
+        navigate("/");
+      } else {
+        const errorData = await res.json();
+        toast.error(`❌ ${errorData.message || "Failed to post."}`);
+      }
+    } catch (err) {
+      toast.error("❌ Network or server error.");
+      console.error("Submit error:", err);
     }
   };
 
