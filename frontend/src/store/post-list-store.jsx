@@ -21,6 +21,9 @@ const postListReducer = (currPostList, action) => {
   }
 };
 
+// Get API base URL from environment
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 // Provider component
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
@@ -28,25 +31,30 @@ const PostListProvider = ({ children }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch(`${API_BASE}/api/posts`);
+        if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
         dispatchPostList({ type: "SET_POSTS", payload: data });
       } catch (err) {
         console.error("Failed to fetch posts", err);
       }
     };
+
     fetchPosts();
   }, []);
 
   const addPost = async (post) => {
     try {
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch(`${API_BASE}/api/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(post),
       });
+
+      if (!res.ok) throw new Error("Failed to add post");
+
       const savedPost = await res.json();
       dispatchPostList({ type: "ADD_POST", payload: savedPost });
     } catch (err) {
@@ -56,9 +64,12 @@ const PostListProvider = ({ children }) => {
 
   const deletePost = async (postId) => {
     try {
-      await fetch(`http://localhost:5000/api/posts/${postId}`, {
+      const res = await fetch(`${API_BASE}/api/posts/${postId}`, {
         method: "DELETE",
       });
+
+      if (!res.ok) throw new Error("Failed to delete post");
+
       dispatchPostList({ type: "DELETE_POST", payload: { postId } });
     } catch (err) {
       console.error("Failed to delete post", err);
@@ -73,4 +84,3 @@ const PostListProvider = ({ children }) => {
 };
 
 export default PostListProvider;
-

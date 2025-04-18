@@ -6,7 +6,6 @@ const postSchema = new mongoose.Schema({
   tags: [String],
   reactions: { type: Number, default: 0 },
   photo: { type: String }, // base64 image
-  createdAt: { type: Date, default: Date.now },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
