@@ -3,8 +3,14 @@ import Post from "../models/postModel.js";
 // Create Post Function
 export const createPost = async (req, res) => {
   try {
-    const { title, body, tags, reactions, photo } = req.body;
-    const newPost = new Post({ title, body, tags, reactions, photo });
+    const { title, body, tags, photo } = req.body;
+    const newPost = new Post({ 
+      title, 
+      body, 
+      tags,  
+      photo,
+      userId: req.userId,
+     });
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
   } catch (err) {

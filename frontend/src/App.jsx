@@ -38,16 +38,16 @@ function App() {
     return storedLoginStatus === "true" && storedUser ? true : false;
   });
 
-  const [user, setUser] = useState(() =>
-    JSON.parse(localStorage.getItem("user"))
-  );
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   useEffect(() => {
     console.log("🔍 LocalStorage on App Start:");
     console.log("isLoggedIn:", localStorage.getItem("isLoggedIn"));
     console.log("user:", localStorage.getItem("user"));
 
-    // If inconsistency detected, reset login state
     if (localStorage.getItem("isLoggedIn") === "true" && !localStorage.getItem("user")) {
       setIsLoggedIn(false);
     }

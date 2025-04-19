@@ -4,7 +4,6 @@ const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
   body: { type: String, required: true },
   tags: [String],
-  reactions: { type: Number, default: 0 },
   photo: { type: String }, // base64 image
   userId: {
     type: mongoose.Schema.Types.ObjectId,

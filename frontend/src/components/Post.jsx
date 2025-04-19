@@ -14,26 +14,29 @@ const Post = ({ post }) => {
             className="badge rounded-pill bg-danger"
             onClick={() => deletePost(post._id)}
             style={{ cursor: "pointer" }}
+            aria-label="Delete post"
           >
             <MdDeleteForever />
           </span>
         </h5>
 
-        {post.photo && (
+        {post.photo ? (
           <img
             src={post.photo}
-            alt="Post"
+            alt={post.title || "Post image"} // More descriptive alt text
             style={{
               maxWidth: "100%",
               borderRadius: "8px",
               marginBottom: "1rem",
             }}
           />
+        ) : (
+          <p className="text-muted">No photo available</p> // Fallback text if no photo
         )}
 
         <p className="card-text">{post.body}</p>
 
-        {Array.isArray(post.tags) &&
+        {Array.isArray(post.tags) && post.tags.length > 0 ? (
           post.tags.map((tag) => (
             <span
               key={tag}
@@ -41,12 +44,10 @@ const Post = ({ post }) => {
             >
               {tag}
             </span>
-          ))}
-
-        {/* <button type="button" className="btn btn-primary mt-2">
-          Reactions{" "}
-          <span className="badge text-bg-secondary">{post.reactions}</span>
-        </button> */}
+          ))
+        ) : (
+          <span className="badge rounded-pill text-bg-secondary">No tags</span> // Fallback text if no tags
+        )}
       </div>
     </div>
   );

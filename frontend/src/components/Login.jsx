@@ -3,43 +3,43 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../api/userApi";
 import { toast } from "react-toastify";
 
-function Login({ setIsLoggedIn }) {
+function Login({ setIsLoggedIn, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await login({ email, password });
-      const { token } = response.data;
 
-      // Save token to localStorage (or cookies if you prefer)
-      localStorage.setItem("token", token);
-      localStorage.setItem("isLoggedIn", "true");
-      setIsLoggedIn(true);
-      
+      if (response?.data?.token) {
+        const { token, user } = response.data;
 
-      toast.success("✅ Login successful!");
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("isLoggedIn", "true");
 
-      
+        setIsLoggedIn(true);
+        setUser(user);
 
-      // Redirect user
-      
+        toast.success("✅ Login successful!");
 
-      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
-      localStorage.removeItem("redirectAfterLogin");
-      
-      console.log("✅ redirectAfterLogin in localStorage:", localStorage.getItem("redirectAfterLogin"));
-      console.log("🔐 Token:", localStorage.getItem("token"));
-      console.log("🔓 isLoggedIn:", localStorage.getItem("isLoggedIn"));
-      
+        const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+        localStorage.removeItem("redirectAfterLogin");
 
-      navigate(redirectPath, { replace: true });
+        console.log("🔐 Token:", token);
+        console.log("👤 User:", user);
+        console.log("✅ Redirecting to:", redirectPath);
 
+        navigate(redirectPath, { replace: true });
+      } else {
+        throw new Error("Token missing from response.");
+      }
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
-      toast.error("❌ Login failed: " + (error.response?.data?.message || "Something went wrong"));
+      toast.error("❌ Login failed: " + (error.response?.data?.message || error.message));
     }
   };
 

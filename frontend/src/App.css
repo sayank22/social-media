@@ -27,6 +27,31 @@
   margin-top: 50px;
   margin-left: 10%;
 }
+.tags {
+  margin-top: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #f1f1f1;
+  color: #333;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.reactions {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.post-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
 
 .logo {
   width: 150px;

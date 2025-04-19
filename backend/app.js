@@ -11,6 +11,10 @@ dotenv.config();
 
 const app = express();
 
+
+// ✅ Log your JWT_SECRET to confirm it's loading correctly
+console.log("🛡️ JWT_SECRET:", process.env.JWT_SECRET);
+
 // Fix __dirname when using ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

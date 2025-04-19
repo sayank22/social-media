@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import { PostListContext } from "../store/post-list-store";
 import { toast } from "react-toastify";
 
 const CreatePost = () => {
   const { addPost } = useContext(PostListContext);
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const photoInputRef = useRef();
   const postTitleElement = useRef();
@@ -14,77 +15,62 @@ const CreatePost = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
-    const photoFile = photoInputRef.current.files[0];
-    const postTitle = postTitleElement.current.value.trim();
-    const postBody = postBodyElement.current.value.trim();
-    const tags = tagsElement.current.value.trim().split(" ").filter(tag => tag !== "");
+    const token = localStorage.getItem("token");
 
-    if (!postTitle || !postBody || tags.length === 0) {
-      toast.error("Please fill in all required fields.");
+    if (!token) {
+      toast.error("You must be logged in to create a post.");
+      setIsSubmitting(false);
       return;
     }
 
     try {
-      const token = localStorage.getItem("token");
+      const photoFile = photoInputRef.current.files[0];
+      const postTitle = postTitleElement.current.value.trim();
+      const postBody = postBodyElement.current.value.trim();
+      const tags = tagsElement.current.value.trim().split(" ").filter(tag => tag !== "");
 
-      // Check if token is available
-      if (!token) {
-        toast.error("You must be logged in to create a post.");
+      if (!postTitle || !postBody || tags.length === 0) {
+        toast.error("Please fill in all required fields.");
+        setIsSubmitting(false);
         return;
       }
-
-      console.log("📦 Token being sent:", token);  // Log token for debugging
 
       const formData = {
         title: postTitle,
         body: postBody,
         tags,
-        reactions: 0,
-        photo: null,
       };
 
       if (photoFile) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          formData.photo = reader.result;
-          submitPost(formData, token);
-        };
-        reader.readAsDataURL(photoFile);
-      } else {
-        submitPost(formData, token);
+        formData.photo = await readFileAsDataURL(photoFile);
       }
-    } catch (err) {
-      toast.error("Something went wrong.");
-      console.error(err);
-    }
-  };
 
-  const submitPost = async (formData, token) => {
-    try {
-      const res = await fetch("http://localhost:5000/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await addPost(formData);
 
-      if (res.ok) {
-        const savedPost = await res.json();
-        addPost(savedPost);
+      if (result) {
         toast.success("✅ Post created successfully!");
         resetForm();
         navigate("/");
       } else {
-        const errorData = await res.json();
-        toast.error(`❌ ${errorData.message || "Failed to post."}`);
+        toast.error("Failed to create post. Please try again.");
       }
     } catch (err) {
-      toast.error("❌ Network or server error.");
-      console.error("Submit error:", err);
+      toast.error("Something went wrong.");
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const readFileAsDataURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   };
 
   const resetForm = () => {
@@ -149,8 +135,12 @@ const CreatePost = () => {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary">
-        Post
+      <button 
+        type="submit" 
+        className="btn btn-primary"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Posting..." : "Post"}
       </button>
     </form>
   );
