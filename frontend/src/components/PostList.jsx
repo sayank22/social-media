@@ -36,7 +36,6 @@ function PostList() {
   // Display posts
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">📬 Latest Posts</h2>
       {postList.map((post) => (
         <div key={post._id} className="card mb-3 shadow-sm">
           <div className="card-body">
@@ -48,7 +47,7 @@ function PostList() {
               <img
                 src={post.photo}
                 alt={post.title}
-                style={{ width: "100%", borderRadius: "8px", marginBottom: "1rem" }}
+                style={{ width: "50%", borderRadius: "8px", marginBottom: "1rem" }}
               />
             )}
 
