@@ -1,37 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/userApi";
+import { login as apiLogin } from "../api/userApi";
 import { toast } from "react-toastify";
+import { AuthContext } from "../store/AuthContext";
 
-function Login({ setIsLoggedIn, setUser }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await login({ email, password });
+      const response = await apiLogin({ email, password });
 
       if (response?.data?.token) {
         const { token, user } = response.data;
 
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("isLoggedIn", "true");
 
-        setIsLoggedIn(true);
-        setUser(user);
+        login(user); // update context
 
         toast.success("✅ Login successful!");
 
         const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
         localStorage.removeItem("redirectAfterLogin");
-
-        console.log("🔐 Token:", token);
-        console.log("👤 User:", user);
-        console.log("✅ Redirecting to:", redirectPath);
 
         navigate(redirectPath, { replace: true });
       } else {

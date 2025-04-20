@@ -15,7 +15,13 @@
 }
 
 .post-card{
-  margin: 20px 50px;
+  height: 40rem;
+  width: 27rem;
+  margin: 20px 20px;
+}
+
+.card-body{
+  width: 27rem;
 }
 
 .hashtag{
@@ -38,12 +44,6 @@
   padding: 5px 10px;
   margin-right: 5px;
   border-radius: 5px;
-}
-
-.reactions {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
 }
 
 .post-image {

@@ -1,12 +1,16 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from '../assets/logo.png';
+import { useContext } from "react";
+import { AuthContext } from "../store/AuthContext";
+import logo from "../assets/logo.png";
 
-const Sidebar = ({ isLoggedIn }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleCreatePostClick = () => {
     if (!isLoggedIn) {
+      localStorage.setItem("redirectAfterLogin", "/createpost");
       navigate("/login");
     } else {
       navigate("/createpost");
@@ -14,27 +18,32 @@ const Sidebar = ({ isLoggedIn }) => {
   };
 
   return (
-    <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar" style={{ width: "220px" }}>
+    <div
+      className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar"
+      style={{ width: "220px" }}
+    >
       <header>
-      <img src={logo} alt="SilentPost Logo" className="logo" />
-    </header>
+        <img src={logo} alt="SilentPost Logo" className="logo" />
+      </header>
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item" onClick={() => navigate("/home")}>
           <span
             role="button"
-            className={`nav-link text-white ${location.pathname === "/home" ? "active" : ""}`}
+            className={`nav-link text-white ${
+              location.pathname === "/home" ? "active" : ""
+            }`}
           >
-            <svg className="bi pe-none me-2" width="16" height="16" aria-hidden="true"><use xlinkHref="#home"></use></svg>
             Home
           </span>
         </li>
-        <li onClick={() => navigate("/createpost")}>
+        <li onClick={handleCreatePostClick}>
           <span
             role="button"
-            className={`nav-link text-white ${location.pathname === "/createpost" ? "active" : ""}`}
+            className={`nav-link text-white ${
+              location.pathname === "/createpost" ? "active" : ""
+            }`}
           >
-            <svg className="bi pe-none me-2" width="16" height="16" aria-hidden="true"><use xlinkHref="#speedometer2"></use></svg>
             Create Post
           </span>
         </li>

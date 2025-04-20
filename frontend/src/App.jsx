@@ -1,8 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Components
@@ -14,94 +13,60 @@ import PostList from "./components/PostList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ErrorBoundary from "./ErrorBoundary";
+import RequireAuth from "./components/RequireAuth";
 
 // Store
 import PostListProvider from "./store/post-list-store";
-
-// Protected Route
-const RequireAuth = ({ children }) => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-  if (!isLoggedIn) {
-    toast.warn("Please login to create a post ✋");
-    localStorage.setItem("redirectAfterLogin", "/createpost");
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-};
+import AuthProvider from "./store/AuthContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const storedLoginStatus = localStorage.getItem("isLoggedIn");
-    const storedUser = localStorage.getItem("user");
-    return storedLoginStatus === "true" && storedUser ? true : false;
-  });
-
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
-
-  useEffect(() => {
-    console.log("🔍 LocalStorage on App Start:");
-    console.log("isLoggedIn:", localStorage.getItem("isLoggedIn"));
-    console.log("user:", localStorage.getItem("user"));
-
-    if (localStorage.getItem("isLoggedIn") === "true" && !localStorage.getItem("user")) {
-      setIsLoggedIn(false);
-    }
-  }, []);
-
   return (
     <BrowserRouter>
-      <PostListProvider>
-        <div className="app-container">
-          <Sidebar isLoggedIn={isLoggedIn} />
-          <div className="content">
-            <Header
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              user={user}
-            />
+      <AuthProvider>
+        <PostListProvider>
+          <div className="app-container">
+            <Sidebar />
+            <div className="content">
+              <Header />
 
-            <Routes>
-              <Route path="/" element={<PostList />} />
+              <Routes>
+                <Route path="/" element={<PostList />} />
 
-              <Route
-                path="/createpost"
-                element={
-                  <RequireAuth>
-                    <CreatePost />
-                  </RequireAuth>
-                }
-              />
+                <Route
+                  path="/createpost"
+                  element={
+                    <RequireAuth>
+                      <CreatePost />
+                    </RequireAuth>
+                  }
+                />
 
-              <Route
-                path="/login"
-                element={
-                  <ErrorBoundary>
-                    <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
-                  </ErrorBoundary>
-                }
-              />
+                <Route
+                  path="/login"
+                  element={
+                    <ErrorBoundary>
+                      <Login />
+                    </ErrorBoundary>
+                  }
+                />
 
-              <Route
-                path="/signup"
-                element={
-                  <ErrorBoundary>
-                    <Signup />
-                  </ErrorBoundary>
-                }
-              />
+                <Route
+                  path="/signup"
+                  element={
+                    <ErrorBoundary>
+                      <Signup />
+                    </ErrorBoundary>
+                  }
+                />
 
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
 
-            <Footer />
+              <Footer />
+            </div>
           </div>
-        </div>
-      </PostListProvider>
+        </PostListProvider>
+      </AuthProvider>
 
       <ToastContainer position="top-right" autoClose={3000} />
     </BrowserRouter>

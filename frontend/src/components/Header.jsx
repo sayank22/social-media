@@ -1,25 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from "../store/AuthContext";
 
-const Header = ({ isLoggedIn, setIsLoggedIn, user }) => {
+const Header = () => {
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("user");
+    logout();
     toast.success("👋 Logged out successfully!");
-    setIsLoggedIn(false);
     navigate("/login");
-  };
-
-  const handleCreatePostClick = () => {
-    if (!isLoggedIn) {
-      toast.warn("You must be logged in to create a post.");
-      localStorage.setItem("redirectAfterLogin", "/createpost");
-      navigate("/login");
-    } else {
-      navigate("/createpost");
-    }
   };
 
   return (
@@ -50,11 +41,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn, user }) => {
 
           <div className="text-end">
             {isLoggedIn ? (
-              <>
-                <button className="btn btn-outline-light" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
+              <button className="btn btn-outline-light" onClick={handleLogout}>
+                Logout
+              </button>
             ) : (
               <>
                 <button

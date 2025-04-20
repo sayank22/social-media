@@ -6,7 +6,7 @@ const Post = ({ post }) => {
   const { deletePost } = useContext(PostListContext); // ✅ FIXED CONTEXT
 
   return (
-    <div className="card post-card" style={{ width: "27rem" }}>
+    <div className="card post-card">
       <div className="card-body">
         <h5 className="card-title d-flex justify-content-between align-items-center">
           {post.title}
@@ -26,12 +26,13 @@ const Post = ({ post }) => {
             alt={post.title || "Post image"} // More descriptive alt text
             style={{
               maxWidth: "100%",
+              height: "400px",
               borderRadius: "8px",
               marginBottom: "1rem",
             }}
           />
         ) : (
-          <p className="text-muted">No photo available</p> // Fallback text if no photo
+          <p className="text-muted"></p> // Fallback text if no photo
         )}
 
         <p className="card-text">{post.body}</p>
