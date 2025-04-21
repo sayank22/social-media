@@ -1,9 +1,59 @@
-import { useContext } from "react";
-import { PostListContext } from "../store/post-list-store"; // ✅ FIXED NAME
+import { useContext, useEffect, useState } from "react";
+import { PostListContext } from "../store/post-list-store";
 import { MdDeleteForever } from "react-icons/md";
+import { AuthContext } from "../store/AuthContext";
+import axios from "axios";
 
 const Post = ({ post }) => {
-  const { deletePost } = useContext(PostListContext); // ✅ FIXED CONTEXT
+  console.log("🔄 Post component loaded:", post.title);
+
+  const { deletePost } = useContext(PostListContext);
+  const { isLoggedIn, token, user } = useContext(AuthContext);
+  console.log("📦 Token from AuthContext:", token);
+
+
+  const [reactionCount, setReactionCount] = useState(post.reactions?.length || 0);
+  const [hasReacted, setHasReacted] = useState(false);
+
+  useEffect(() => {
+    console.log("📌 useEffect running for reactions check");
+    if (user && post.reactions?.includes(user._id)) {
+      console.log("✅ User has already reacted");
+      setHasReacted(true);
+    }
+  }, [post.reactions, user]);
+
+  const handleToggleReaction = async () => {
+    console.log("🟢 Toggling reaction for post:", post._id);
+    console.log("📤 Attempting to toggle reaction with token:", token);
+
+    if (!token) {
+      console.warn("⚠️ No token found, cannot toggle reaction");
+      return;
+    }
+    console.log("📤 Sending token:", token);
+
+    try {
+      console.log("📤 Sending token:", token);
+      const res = await axios.post(
+        `http://localhost:5000/api/posts/${post._id}/toggle-reaction`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: false,
+        }
+      );
+  
+      console.log("✅ Reaction toggle success:", res.data);
+  
+      setReactionCount(res.data.reactionsCount);
+      setHasReacted(res.data.reacted);
+    } catch (err) {
+      console.error("❌ Reaction toggle failed:", err.response?.data || err.message);
+    }
+  };  
 
   return (
     <div className="card post-card">
@@ -20,10 +70,10 @@ const Post = ({ post }) => {
           </span>
         </h5>
 
-        {post.photo ? (
+        {post.photo && (
           <img
             src={post.photo}
-            alt={post.title || "Post image"} // More descriptive alt text
+            alt={post.title || "Post image"}
             style={{
               maxWidth: "100%",
               height: "400px",
@@ -31,23 +81,27 @@ const Post = ({ post }) => {
               marginBottom: "1rem",
             }}
           />
-        ) : (
-          <p className="text-muted"></p> // Fallback text if no photo
         )}
 
         <p className="card-text">{post.body}</p>
 
         {Array.isArray(post.tags) && post.tags.length > 0 ? (
           post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="badge rounded-pill text-bg-info hashtag me-1"
-            >
+            <span key={tag} className="badge rounded-pill text-bg-info hashtag me-1">
               {tag}
             </span>
           ))
         ) : (
-          <span className="badge rounded-pill text-bg-secondary">No tags</span> // Fallback text if no tags
+          <span className="badge rounded-pill text-bg-secondary">No tags</span>
+        )}
+
+        {isLoggedIn && (
+          <button
+            onClick={handleToggleReaction}
+            className={`btn mt-3 ${hasReacted ? "btn-success" : "btn-outline-success"}`}
+          >
+            {hasReacted ? "Reaction" : "React"} ({reactionCount})
+          </button>
         )}
       </div>
     </div>

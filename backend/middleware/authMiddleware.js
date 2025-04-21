@@ -13,15 +13,29 @@ export const verifyToken = (req, res, next) => {
   try {
     // Verify the token using the JWT_SECRET
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("✅ Decoded user:", decoded); // check this in your terminal
     
+    // Logging decoded user info (in development, ensure this is removed in production)
+    if (process.env.NODE_ENV !== "production") {
+      console.log("✅ Decoded user:", decoded); 
+    }
+
     // Set userId in the request object for use in routes
     req.userId = decoded.userId;
     
     // Proceed to the route handler
     next(); 
   } catch (err) {
-    // Handle invalid or expired token
-    return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    if (err.name === "TokenExpiredError") {
+      // Handle token expiration
+      return res.status(401).json({ message: "Unauthorized: Token expired" });
+    }
+    if (err.name === "JsonWebTokenError") {
+      // Handle invalid token error
+      return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
+
+    // Handle other JWT errors
+    console.error("❌ Token verification error:", err);
+    return res.status(500).json({ message: "Server error: Failed to verify token" });
   }
 };

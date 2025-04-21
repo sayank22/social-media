@@ -12,6 +12,8 @@ import CreatePost from "./components/CreatePost";
 import PostList from "./components/PostList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Profile from "./components/Profile";
+import About from "./components/About";
 import ErrorBoundary from "./ErrorBoundary";
 import RequireAuth from "./components/RequireAuth";
 
@@ -60,6 +62,16 @@ function App() {
                 />
 
                 <Route path="*" element={<Navigate to="/" replace />} />
+
+                <Route
+                path="/profile"
+                element={
+                <RequireAuth>
+                  <Profile />
+                  </RequireAuth>
+                }
+                />
+<Route path="/about" element={<About />} />
               </Routes>
 
               <Footer />

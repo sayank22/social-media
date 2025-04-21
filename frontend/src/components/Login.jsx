@@ -20,8 +20,9 @@ function Login() {
         const { token, user } = response.data;
 
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
 
-        login(user); // update context
+        login(user, token);
 
         toast.success("✅ Login successful!");
 

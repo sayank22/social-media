@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { PostListContext } from "../store/post-list-store";
 import { Spinner } from "react-bootstrap";
@@ -34,6 +35,7 @@ function PostList() {
   return (
     <div className="container mt-4">
       {postList.map((post) => (
+        console.log("📝 Rendering post:", post.title),
         <Post key={post._id} post={post} /> // 👈 reuse Post component
       ))}
     </div>

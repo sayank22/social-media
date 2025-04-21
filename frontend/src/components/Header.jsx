@@ -2,10 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
+import React, { useState } from "react";
+import Modal from "react-modal";
 
 const Header = () => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleLogout = () => {
     logout();
@@ -27,15 +33,19 @@ const Header = () => {
 
             <ul className="nav ms-4">
               <li>
-                <button className="nav-link btn btn-link text-white" onClick={() => navigate("/facts")}>
+                <button className="nav-link btn btn-link text-white" onClick={openModal}>
                   Features
                 </button>
               </li>
               <li>
-                <button className="nav-link btn btn-link text-white" onClick={() => navigate("/about")}>
-                  About
-                </button>
-              </li>
+  <button
+    className="nav-link btn btn-link text-white"
+    onClick={() => navigate("/about")}
+  >
+    About
+  </button>
+</li>
+
             </ul>
           </div>
 
@@ -65,6 +75,25 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Features Modal"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <h2>✨ Features of Our Social Media - SilentPost🤐🤫</h2>
+        <ul>
+          <li>💬 See Anonymous Posts</li>
+          <li>🔓🔑 Don't need to Require to see posts</li>
+          <li>📜 Create Posts With or Without Photo</li>
+          <li>❤️ React to Posts</li>
+          <li>📤 SignUp & Login to Create Posts & React on Post</li>
+          <li>👤 View Profile</li>
+          <li>🔒 Secure Login and Authentication</li>
+        </ul>
+        <button onClick={closeModal}>Close</button>
+      </Modal>
     </header>
   );
 };

@@ -8,7 +8,11 @@ const postSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true, // 👈 enforce ownership
+    required: true,
+  },
+  reactions: {
+    type: [mongoose.Schema.Types.ObjectId], 
+    ref: "User",
   },
 },
 { timestamps: true }

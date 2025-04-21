@@ -6,14 +6,14 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import morgan from "morgan";  // for logging requests
 
 dotenv.config();
 
 const app = express();
 
-
-// ✅ Log your JWT_SECRET to confirm it's loading correctly
-console.log("🛡️ JWT_SECRET:", process.env.JWT_SECRET);
+// Log all HTTP requests (useful for development and debugging)
+app.use(morgan('tiny'));
 
 // Fix __dirname when using ES modules
 const __filename = fileURLToPath(import.meta.url);
