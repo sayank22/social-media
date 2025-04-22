@@ -16,7 +16,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:5173",      // Local development URL
-    "https://silentpost.vercel.app" // Production URL
+    "https://silentpost-client.vercel.app" // Production URL
   ],
   credentials: true,               // Allow credentials (cookies)
   allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
