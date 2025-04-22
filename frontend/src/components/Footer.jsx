@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../store/AuthContext";
 import logo from "../assets/tagline.png";
 
 const Footer = () => {
   const navigate = useNavigate();
-
-  // Get user from localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { isLoggedIn, user } = useContext(AuthContext); // ✅ get from context
 
   return (
     <footer className="py-3 my-4">
-      {/* Navigation links */}
       <ul className="nav justify-content-center border-bottom pb-3 mb-3">
         <li className="nav-item">
           <a href="#" className="nav-link px-2 text-body-secondary">Home</a>
@@ -23,22 +21,19 @@ const Footer = () => {
         </li>
       </ul>
 
-      {/* Logo */}
       <div className="text-center">
         <img src={logo} alt="SilentPost Logo" className="taglinelogo" />
       </div>
 
-      {/* Logged-in user info */}
       <div className="text-center mt-3">
-        {user ? (
-          <p className="text-muted">Logged in as: <strong>{user.name}</strong></p>
+        {isLoggedIn ? (
+          <p className="text-muted">Logged in as: <strong>{user?.name}</strong></p>
         ) : (
           <p className="text-muted">Not logged in</p>
         )}
       </div>
 
-      {/* Go to Profile Button */}
-      {user && (
+      {isLoggedIn && (
         <div className="text-center mt-2">
           <button
             onClick={() => navigate("/profile")}

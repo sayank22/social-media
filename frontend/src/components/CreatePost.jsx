@@ -20,7 +20,8 @@ const CreatePost = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      toast.error("You must be logged in to create a post.");
+      toast.warn("🔒 Login required");
+      toast.info("📝 Please sign up to create a post");
       setIsSubmitting(false);
       return;
     }

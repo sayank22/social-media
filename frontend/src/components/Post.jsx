@@ -10,6 +10,11 @@ const Post = ({ post }) => {
   const { deletePost } = useContext(PostListContext);
   const { isLoggedIn, token, user } = useContext(AuthContext);
   console.log("📦 Token from AuthContext:", token);
+  
+console.log("🧪 AuthContext Test:");
+console.log("🔐 isLoggedIn:", isLoggedIn);
+console.log("🪪 token:", token);
+console.log("👤 user:", user);
 
 
   const [reactionCount, setReactionCount] = useState(post.reactions?.length || 0);
@@ -35,8 +40,11 @@ const Post = ({ post }) => {
 
     try {
       console.log("📤 Sending token:", token);
-      const res = await axios.post(
-        `http://localhost:5000/api/posts/${post._id}/toggle-reaction`,
+      const API_BASE = import.meta.env.VITE_API_URL || "https://silentpost-server.onrender.com";
+
+const res = await axios.post(
+  `${API_BASE}/api/posts/${post._id}/toggle-reaction`,
+
         {},
         {
           headers: {

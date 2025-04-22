@@ -9,7 +9,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
-        const res = await axios.get(`/api/posts/user/${user._id}`, {
+        const res = await axios.get(`https://silentpost-server.onrender.com/api/posts/user/${user._id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserPosts(res.data.posts);

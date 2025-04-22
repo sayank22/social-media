@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import logo from "../assets/logo.png";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn } = useContext(AuthContext);
@@ -15,24 +15,19 @@ const Sidebar = () => {
     } else {
       navigate("/createpost");
     }
+    if (toggleSidebar) toggleSidebar(); // close after click on small screen
   };
 
   return (
-    <div
-      className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar"
-      style={{ width: "220px" }}
-    >
-      <header>
-        <img src={logo} alt="SilentPost Logo" className="logo" />
-      </header>
+    <div className={`sidebar ${isOpen ? "open" : ""}`}>
+      <button className="close-btn" onClick={toggleSidebar}>✕</button>
+      <img src={logo} alt="SilentPost Logo" className="logo" />
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
-        <li className="nav-item" onClick={() => navigate("/home")}>
+        <li className="nav-item" onClick={() => { navigate("/"); toggleSidebar(); }}>
           <span
             role="button"
-            className={`nav-link text-white ${
-              location.pathname === "/home" ? "active" : ""
-            }`}
+            className={`nav-link text-white ${location.pathname === "/" ? "active" : ""}`}
           >
             Home
           </span>
@@ -40,9 +35,7 @@ const Sidebar = () => {
         <li onClick={handleCreatePostClick}>
           <span
             role="button"
-            className={`nav-link text-white ${
-              location.pathname === "/createpost" ? "active" : ""
-            }`}
+            className={`nav-link text-white ${location.pathname === "/createpost" ? "active" : ""}`}
           >
             Create Post
           </span>

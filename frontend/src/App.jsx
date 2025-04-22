@@ -1,8 +1,9 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 // Components
 import Header from "./components/Header";
@@ -17,71 +18,73 @@ import About from "./components/About";
 import ErrorBoundary from "./ErrorBoundary";
 import RequireAuth from "./components/RequireAuth";
 
-// Store
-import PostListProvider from "./store/post-list-store";
-import AuthProvider from "./store/AuthContext";
-
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <PostListProvider>
-          <div className="app-container">
-            <Sidebar />
-            <div className="content">
-              <Header />
+    <div className="app-container">
+      {/* Hamburger menu for small screens */}
+      <div className="hamburger" onClick={toggleSidebar}>
+        ☰
+      </div>
 
-              <Routes>
-                <Route path="/" element={<PostList />} />
+      {/* Sidebar */}
+      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-                <Route
-                  path="/createpost"
-                  element={
-                    <RequireAuth>
-                      <CreatePost />
-                    </RequireAuth>
-                  }
-                />
+      {/* Main Content */}
+      <div className="content">
+        <Header />
 
-                <Route
-                  path="/login"
-                  element={
-                    <ErrorBoundary>
-                      <Login />
-                    </ErrorBoundary>
-                  }
-                />
+        <Routes>
+          <Route path="/" element={<PostList />} />
 
-                <Route
-                  path="/signup"
-                  element={
-                    <ErrorBoundary>
-                      <Signup />
-                    </ErrorBoundary>
-                  }
-                />
+          <Route
+            path="/createpost"
+            element={
+              <RequireAuth>
+                <CreatePost />
+              </RequireAuth>
+            }
+          />
 
-                <Route path="*" element={<Navigate to="/" replace />} />
+          <Route
+            path="/login"
+            element={
+              <ErrorBoundary>
+                <Login />
+              </ErrorBoundary>
+            }
+          />
 
-                <Route
-                path="/profile"
-                element={
-                <RequireAuth>
-                  <Profile />
-                  </RequireAuth>
-                }
-                />
-<Route path="/about" element={<About />} />
-              </Routes>
+          <Route
+            path="/signup"
+            element={
+              <ErrorBoundary>
+                <Signup />
+              </ErrorBoundary>
+            }
+          />
 
-              <Footer />
-            </div>
-          </div>
-        </PostListProvider>
-      </AuthProvider>
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
+
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+
+        <Footer />
+      </div>
 
       <ToastContainer position="top-right" autoClose={3000} />
-    </BrowserRouter>
+    </div>
   );
 }
 

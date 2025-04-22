@@ -1,4 +1,5 @@
 import { createContext, useReducer, useEffect, useState, useCallback } from "react";
+import { toast } from 'react-toastify';
 
 // Default error thrower for context methods
 const throwError = () => {
@@ -31,7 +32,7 @@ const postListReducer = (state, action) => {
 };
 
 // API config (base URL)
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_URL || "https://silentpost-server.onrender.com";
 
 // Helper function to retrieve token from localStorage
 const getToken = () => localStorage.getItem("token");
@@ -86,11 +87,14 @@ const PostListProvider = ({ children }) => {
     fetchPosts();
   }, [fetchPosts]);
 
-  // Function to add a new post
   const addPost = useCallback(async (post) => {
     try {
       setError(null);
       const token = getToken();
+      console.log("🧾 Headers:", {
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("🌐 API_BASE:", API_BASE);
 
       if (!token) {
         setError("You must be logged in to add a post.");
@@ -133,30 +137,38 @@ const PostListProvider = ({ children }) => {
     try {
       setError(null);
       const token = getToken();
-
+      console.log("🔐 Token used for deletion:", token);
+  
       if (!token) {
+        toast.error("You must be logged in to delete a post.");
         setError("You must be logged in to delete a post.");
         return false;
       }
-
+      
+      console.log("📡 Sending DELETE request to:", `${API_BASE}/api/posts/${postId}`);
       const res = await fetch(`${API_BASE}/api/posts/${postId}`, {
         method: "DELETE",
         headers: getAuthHeaders(),
       });
-
+      console.log("🧾 Response status:", res.status);
       if (!res.ok) {
         if (res.status === 401) {
           localStorage.removeItem("token");
           setError("Unauthorized. Please log in.");
           setIsAuthenticated(false);
+          // Optionally navigate to login page
           return false;
         }
-
+  
         const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to delete post");
+        console.error("❌ Delete failed with message:", errorData.message);
+        setError(errorData.message || "Failed to delete post");
+        return false;
       }
-
+      toast.info("🗑️ Post has been deleted.");
+      console.log("✅ Post deleted successfully:", postId);
       dispatchPostList({ type: "DELETE_POST", payload: { postId } });
+      // Optionally add a success message here, like a toast
       return true;
     } catch (err) {
       console.error("❌ Failed to delete post:", err.message);
@@ -164,7 +176,7 @@ const PostListProvider = ({ children }) => {
       return false;
     }
   }, []);
-
+  
   return (
     <PostListContext.Provider
       value={{

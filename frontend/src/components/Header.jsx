@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../store/AuthContext";
-import React, { useState } from "react";
 import Modal from "react-modal";
 
 const Header = () => {
@@ -20,36 +19,37 @@ const Header = () => {
   };
 
   return (
-    <header className="p-3 text-bg-dark header">
+    <header className="p-3 header">
       <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
+        <div className="d-flex flex-column flex-sm-row flex-wrap align-items-center justify-content-between">
+          {/* Logo and Navigation */}
+          <div className="d-flex flex-column flex-sm-row align-items-center">
             <a
               href="/"
-              className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+              className="d-flex align-items-center mb-2 mb-sm-0 text-white text-decoration-none"
             >
               <h4 className="m-0">SilentPost</h4>
             </a>
 
-            <ul className="nav ms-4">
+            <ul className="nav ms-sm-4 mb-2 mb-sm-0">
               <li>
                 <button className="nav-link btn btn-link text-white" onClick={openModal}>
                   Features
                 </button>
               </li>
               <li>
-  <button
-    className="nav-link btn btn-link text-white"
-    onClick={() => navigate("/about")}
-  >
-    About
-  </button>
-</li>
-
+                <button
+                  className="nav-link btn btn-link text-white"
+                  onClick={() => navigate("/about")}
+                >
+                  About
+                </button>
+              </li>
             </ul>
           </div>
 
-          <div className="text-end">
+          {/* Auth Buttons */}
+          <div className="text-end mt-2 mt-sm-0">
             {isLoggedIn ? (
               <button className="btn btn-outline-light" onClick={handleLogout}>
                 Logout
@@ -75,6 +75,8 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -85,10 +87,10 @@ const Header = () => {
         <h2>✨ Features of Our Social Media - SilentPost🤐🤫</h2>
         <ul>
           <li>💬 See Anonymous Posts</li>
-          <li>🔓🔑 Don't need to Require to see posts</li>
+          <li>🔓🔑 No login required to view posts</li>
           <li>📜 Create Posts With or Without Photo</li>
           <li>❤️ React to Posts</li>
-          <li>📤 SignUp & Login to Create Posts & React on Post</li>
+          <li>📤 SignUp & Login to Create and React</li>
           <li>👤 View Profile</li>
           <li>🔒 Secure Login and Authentication</li>
         </ul>
