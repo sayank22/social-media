@@ -1,5 +1,9 @@
-
 # SilentPost – Frontend
+
+  <a href="https://silentpost-client.vercel.app/">
+    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" />
+  </a>
+</p>
 
 <p align="center">
   A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
@@ -14,8 +18,10 @@
 ---
 
 <p align="center">
+User Interface
+<br />
   <a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" width="200" />
+    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost ScreenShot" />
   </a>
 </p>
 
