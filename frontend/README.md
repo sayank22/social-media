@@ -1,7 +1,7 @@
 # SilentPost – Frontend
 
   <a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" />
+    <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" style="width: 25%;height: 25%"/>
   </a>
 </p>
 
