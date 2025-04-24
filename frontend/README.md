@@ -1,34 +1,30 @@
-<p align="center">
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="assets/silentpost-logo.png" alt="SilentPost Logo" width="200" />
-  </a>
-</p>
-
-<br />
-<div align="center">
 
 # SilentPost – Frontend
 
 <p align="center">
-  A fully responsive, anonymous social media frontend built with React and Bootstrap.
+  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
   <br />
-  <a href="https://github.com/sayank22/SilentPost"><strong>Explore the Full Project »</strong></a>
+  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
   <br />
   <br />
-  <a href="https://silentpost-client.vercel.app">Live Demo</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Request Feature</a>
 </p>
 
 </div>
 
 ---
 
-## 🎯 What is SilentPost?
+<p align="center">
+  <a href="https://silentpost-client.vercel.app/">
+    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" width="200" />
+  </a>
+</p>
 
-SilentPost is an anonymous social platform that allows users to post content without revealing identity. Users can interact with posts using a unique reaction system and manage their anonymous profile securely using JWT authentication.
+<br />
+<div align="center">
+
+## 📝 About SilentPost
+
+SilentPost is a social media platform that allows users to share posts anonymously, engage through reactions, and manage personal profiles—all within a secure, JWT-authenticated environment.
 
 ---
 
@@ -111,8 +107,9 @@ This will generate a dist/ folder with optimized production-ready static files. 
 
 📬 Contact the Developer
 Sayan Kundu
-📧 Email: sayank10023@gmail.com
-💼 LinkedIn: linkedin.com/in/sayan-kundu-70b5442b6
-🐱 GitHub: @sayank22
+📧 [Email](mailto:sayank10023@gmail.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
+🐱 [GitHub](https://github.com/sayank22)
+
 
 Designed & Developed with ❤️ by Sayan Kundu

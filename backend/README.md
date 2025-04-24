@@ -1,30 +1,26 @@
-<p align="center">
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="assets/silentpost-logo.png" alt="SilentPost Logo" width="200" />
-  </a>
-</p>
 
-<br />
-<div align="center">
-
-# SilentPost
+# SilentPost – Backend
 
 <p align="center">
-  A secure, anonymous social media platform built with Node.js and React.
+  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
   <br />
-  <a href="https://github.com/sayank22/SilentPost"><strong>Explore the Docs »</strong></a>
+  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
   <br />
   <br />
-  <a href="https://silentpost-client.vercel.app">Live Demo</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Request Feature</a>
 </p>
 
 </div>
 
 ---
+
+<p align="center">
+  <a href="https://silentpost-client.vercel.app/">
+    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" width="200" />
+  </a>
+</p>
+
+<br />
+<div align="center">
 
 ## 📝 About SilentPost
 
@@ -46,41 +42,53 @@ SilentPost is a social media platform that allows users to share posts anonymous
 - ✅ User Authentication with JWT  
 - 📝 Create and Delete Posts  
 - 💬 Toggle Reactions on Posts  
-- 👤 Personal User Profiles  
-- 📱 Fully Responsive Design  
+- 👤 Anonymous User Profiles  
+- 🔐 Route Protection via Middleware  
 
 ---
 
-## 📂 Backend Structure
+## 📂 Folder Structure
 
 backend/ ├── controllers/ │ ├── postController.js │ └── userController.js ├── middleware/ │ └── authMiddleware.js ├── models/ │ ├── postModel.js │ └── user.js ├── routes/ │ ├── postRoutes.js │ └── userRoutes.js ├── .env ├── app.js └── server.js
 
 
 ---
 
-## 📌 API Endpoints
+## ⚙️ Environment Variables
 
-### 🔐 Authentication
+Create a `.env` file inside the `backend/` directory with the following:
 
-- `POST /api/users/signup` – Register new users  
-- `POST /api/users/login` – Login and receive a JWT  
+```env
+PORT=5000
+MONGODB_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
 
-### 🧾 Posts
+📌 API Endpoints
+🔐 Authentication
+POST /api/users/signup – Register new users
 
-- `GET /api/posts/` – Get all posts  
-- `GET /api/posts/:id` – Get a specific post by ID  
-- `POST /api/posts/` – Create a new post (auth required)  
-- `DELETE /api/posts/:id` – Delete your post (auth required)  
-- `POST /api/posts/:id/toggle-reaction` – Like/Unlike a post (auth required)  
-- `GET /api/posts/user/:userId` – Get posts by specific user (auth required)  
+POST /api/users/login – Login and receive a JWT
 
----
+🧾 Posts
+GET /api/posts/ – Get all posts
 
-## 🛠️ Getting Started
+GET /api/posts/:id – Get a specific post by ID
 
-### Prerequisites
+POST /api/posts/ – Create a new post (auth required)
 
-```bash
+DELETE /api/posts/:id – Delete your post (auth required)
+
+POST /api/posts/:id/toggle-reaction – Like/Unlike a post (auth required)
+
+GET /api/posts/user/:userId – Get posts by a specific user (auth required)
+
+🛠️ Getting Started
+Prerequisites
+Node.js
+
+MongoDB (Atlas or local)
+
+Steps
 # Clone the repo
 git clone https://github.com/sayank22/SilentPost.git
 
@@ -91,14 +99,19 @@ cd SilentPost/backend
 npm install
 
 # Start the server
-npm run dev
+node app.js
 
+Backend will run at http://localhost:5000
 
 👨‍💻 About the Developer
 Sayan Kundu – A 23-year-old CSE student from Netaji Subhash Engineering College, passionate about real-world web development and building engaging user-centric apps.
 
-📧 Email: sayank10023@gmail.com
 
-🔗 LinkedIn
+📬 Contact the Developer
+Sayan Kundu
+📧 [Email](mailto:sayank10023@gmail.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
+🐱 [GitHub](https://github.com/sayank22)
 
-🐱 GitHub
+
+Backend designed and built with by Sayan Kundu

@@ -1,36 +1,30 @@
-# SilentPost - social-media
+
+# SilentPost – Social-Media
 
 <p align="center">
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="frontend/assets/silentpost-logo.png" alt="SilentPost Logo" width="200" />
-  </a>
-</p>
-
-<br />
-<div align="center">
-
-# SilentPost
-
-<p align="center">
-  An anonymous and responsive social media platform built with the MERN stack. Users can post anonymously, react to others’ thoughts, and manage accounts securely with JWT-based authentication.
+  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
   <br />
-  <a href="https://github.com/sayank22/SilentPost"><strong>Explore the Full Project »</strong></a>
+  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
   <br />
   <br />
-  <a href="https://silentpost-client.vercel.app">Live Demo</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/sayank22/SilentPost/issues">Request Feature</a>
 </p>
 
 </div>
 
 ---
 
-## 📦 Project Overview
+<p align="center">
+  <a href="https://silentpost-client.vercel.app/">
+    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost Logo" width="200" />
+  </a>
+</p>
 
-SilentPost is a full-stack anonymous social media platform that supports account authentication, post creation/deletion, and reaction toggling. Built with a React frontend and Node.js + Express backend, the app stores data in MongoDB and manages secure auth using JWT.
+<br />
+<div align="center">
+
+## 📝 About SilentPost
+
+SilentPost is a social media platform that allows users to share posts anonymously, engage through reactions, and manage personal profiles—all within a secure, JWT-authenticated environment.
 
 ---
 
@@ -105,11 +99,11 @@ npm install
 
 Create a .env file in the backend/ directory:
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+CONNECTION_STRING(MONGODB_URI)=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 
 Run the backend server:
-npm run dev
+node app.js
 
 3. Setup Frontend
 
@@ -136,7 +130,9 @@ View your own posts via user-based API
 👨‍💻 About the Developer
 Sayan Kundu – A final-year CSE student from Netaji Subhash Engineering College, passionate about building meaningful full-stack applications and exploring modern web technologies.
 
-📧 Email: sayank10023@gmail.com
-💼 LinkedIn: linkedin.com/in/sayan-kundu-70b5442b6
-🐱 GitHub: @sayank22
+📬 Contact the Developer
+Sayan Kundu
+📧 [Email](mailto:sayank10023@gmail.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
+🐱 [GitHub](https://github.com/sayank22)
 
