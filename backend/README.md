@@ -7,16 +7,6 @@
 
 ---
 
-## 📸 Preview
-
-<p align="center">
-  <img src="../frontend/src/assets/silentpost.png" alt="SilentPost UI Preview" width="80%" />
-</p>
-
----
-
-
-
 ## 📝 About SilentPost
 
 SilentPost is a social media platform that allows users to share posts anonymously, engage through reactions, and manage personal profiles—all within a secure, JWT-authenticated environment.
@@ -112,10 +102,12 @@ Sayan Kundu – A 23-year-old CSE student from Netaji Subhash Engineering Colleg
 📬 Contact the Developer
 👨‍💻 Sayan Kundu
 
-📧 sayank10023@gmail.com
+<div align="center">
 
-💼 LinkedIn
+📧 <a href="mailto:sayank10023@gmail.com">sayank10023@gmail.com</a>  
+💼 <a href="https://www.linkedin.com/in/sayan-kundu-70b5442b6/">LinkedIn</a>  
+🐙 <a href="https://github.com/sayank22">GitHub</a>
 
-🐙 GitHub
+</div>
 
 <div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>

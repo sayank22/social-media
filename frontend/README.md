@@ -28,14 +28,6 @@ SilentPost is a social media platform that allows users to share posts anonymous
 
 ---
 
-## 📸 Preview
-
-<p align="center">
-  <img src="assets/silentpost.png" alt="SilentPost UI Preview" width="80%" />
-</p>
-
----
-
 ## ✨ Key Features
 
 - 🔐 JWT-based user authentication
@@ -142,10 +134,13 @@ This will generate a dist/ folder with optimized production-ready static files. 
 📬 Contact the Developer
 👨‍💻 Sayan Kundu
 
-📧 sayank10023@gmail.com
+<div align="center">
 
-💼 LinkedIn
+📧 <a href="mailto:sayank10023@gmail.com">sayank10023@gmail.com</a>  
+💼 <a href="https://www.linkedin.com/in/sayan-kundu-70b5442b6/">LinkedIn</a>  
+🐙 <a href="https://github.com/sayank22">GitHub</a>
 
-🐙 GitHub
+</div>
+
 
 <div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>
