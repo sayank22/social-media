@@ -24,14 +24,14 @@ const Header = () => {
 
   return (
     <header className="bg-[rgba(34,34,34,0.85)] text-white px-4 py-3 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         {/* Left: Hamburger + Logo */}
         <div className="flex items-center gap-3">
-          <button className="text-2xl" onClick={toggleSidebar}>
+          <button className="text-2xl block md:hidden" onClick={toggleSidebar}>
             ☰
           </button>
           <h1
-            className="text-xl font-bold cursor-pointer"
+            className="text-base sm:text-xl font-bold cursor-pointer"
             onClick={() => navigate("/")}
           >
             SilentPost
@@ -50,13 +50,13 @@ const Header = () => {
           ) : (
             <>
               <button
-                className="border border-white px-4 py-1 rounded hover:bg-white hover:text-gray-900 transition"
+                className="border border-white text-sm px-2 sm:px-4 py-1 rounded hover:bg-white hover:text-gray-900 transition"
                 onClick={() => navigate("/login")}
               >
                 Login
               </button>
               <button
-                className="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 transition"
+                className="bg-yellow-400 text-sm px-2 sm:px-4 py-1 rounded hover:bg-yellow-300 transition text-black"
                 onClick={() => navigate("/signup")}
               >
                 Sign-up
