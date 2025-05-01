@@ -134,13 +134,8 @@ This will generate a dist/ folder with optimized production-ready static files. 
 📬 Contact the Developer
 👨‍💻 Sayan Kundu
 
-<div align="center">
+📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)  
+🐙 [GitHub](https://github.com/sayank22)  
 
-📧 <a href="mailto:sayank10023@gmail.com">sayank10023@gmail.com</a>  
-💼 <a href="https://www.linkedin.com/in/sayan-kundu-70b5442b6/">LinkedIn</a>  
-🐙 <a href="https://github.com/sayank22">GitHub</a>
-
-</div>
-
-
-<div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>
+-- Designed & Developed with ❤️ by Sayan Kundu

@@ -102,12 +102,9 @@ Sayan Kundu – A 23-year-old CSE student from Netaji Subhash Engineering Colleg
 📬 Contact the Developer
 👨‍💻 Sayan Kundu
 
-<div align="center">
 
-📧 <a href="mailto:sayank10023@gmail.com">sayank10023@gmail.com</a>  
-💼 <a href="https://www.linkedin.com/in/sayan-kundu-70b5442b6/">LinkedIn</a>  
-🐙 <a href="https://github.com/sayank22">GitHub</a>
+📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)  
+🐙 [GitHub](https://github.com/sayank22)  
 
-</div>
-
-<div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>
+-- Designed & Developed with ❤️ by Sayan Kundu
