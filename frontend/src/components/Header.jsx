@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-[rgba(34,34,34,0.85)] text-white px-4 py-3 shadow-md sticky top-0 z-50">
+    <header className="bg-gray-900 bg-opacity-85  text-white px-4 py-3 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         {/* Left: Hamburger + Logo */}
         <div className="flex items-center gap-3">

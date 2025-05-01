@@ -94,7 +94,9 @@ const res = await axios.post(
 {isLoggedIn && (
   <button
     onClick={handleToggleReaction}
-    className={`btn mt-3 ${hasReacted ? "btn-success" : "btn-outline-success"}`}
+    className={`mt-2 px-3 py-1 rounded text-white transition ${
+      hasReacted ? "bg-red-500 hover:bg-red-600" : "bg-gray-400 text-gray-800 hover:bg-gray-500"
+    }`}
   >
     {hasReacted ? (
     <span role="img" aria-label="fire" className="text-xl">
