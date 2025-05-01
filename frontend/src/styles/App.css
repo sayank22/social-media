@@ -1,275 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ========== LAYOUT ========== */
 .app-container {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
+  @apply flex min-h-screen;
 }
 
 .content {
-  flex: 1;
-  width: 100%;
-  margin-left: 10em; /* Leaves space for sidebar on desktop */
+  @apply flex-1 w-full ml-64; /* Sidebar width */
 }
 
+@media (max-width: 768px) {
+  .content {
+    @apply ml-0;
+  }
+}
+
+/* ========== HEADER ========== */
 .header {
-  height: 10rem;
-  background-color: #111;
-  color: white;
-  padding: 1.5rem 0;
+  @apply bg-black text-white py-6;
 }
 
+/* ========== SIDEBAR ========== */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10em;
-  height: 100%;
-  background-color: #111;
-  color: white;
-  padding: 1rem;
-  z-index: 1000;
-  transition: transform 0.3s ease-in-out;
+  @apply fixed top-0 left-0 h-full w-64 bg-gray-900 bg-opacity-85 backdrop-blur-md p-5 transform transition-all duration-300 ease-in-out z-50 overflow-y-auto;
 }
 
-.sidebar .close-btn {
-  display: none;
-  background: none;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-  margin-bottom: 1rem;
-  cursor: pointer;
+.sidebar.open {
+  @apply translate-x-0 opacity-100;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    @apply -translate-x-full opacity-0;
+  }
 }
 
 .sidebar .logo {
-  width: 6rem;
-  display: block;
-  margin: 0 auto 1rem auto;
+  @apply block w-24 mx-auto mb-6;
 }
 
-/* Hamburger menu (only visible on small screens) */
+/* Sidebar nav links */
+.nav-link {
+  @apply py-2 px-4 cursor-pointer text-white block rounded-lg transition-all duration-200 ease-in-out;
+}
+
+.nav-link:hover {
+  @apply bg-gray-600;
+}
+
+.nav-link.active {
+  @apply bg-gray-700;
+}
+
+/* ========== HAMBURGER ========== */
 .hamburger {
-  display: none;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  font-size: 2rem;
-  color: white;
-  background-color: #111;
-  padding: 0.5rem 0.75rem;
-  z-index: 1100;
-  cursor: pointer;
+  @apply hidden;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    @apply block absolute top-2 left-2 text-3xl text-white bg-black p-2 z-50 cursor-pointer rounded-lg shadow-md;
+  }
 }
 
 /* ========== POST CARD ========== */
-.post-card,
+.post-card {
+  @apply bg-teal-400 max-w-md w-full mx-auto my-4 p-4 rounded-lg transition-all duration-500 ease-in-out;
+}
+
 .card-body {
-  width: 100%;
-  max-width: 32rem;
-  margin: 1rem auto;
+  @apply bg-teal-400 p-4 rounded-lg;
 }
 
+.post-card:hover .post-delete-btn {
+  @apply block scale-110;
+}
+
+/* Delete Button */
+.post-delete-btn {
+  @apply bg-red-600 rounded-full text-white p-2 cursor-pointer shadow-md transition-all;
+}
+
+.post-delete-btn:hover {
+  @apply bg-red-700 scale-110;
+}
+
+/* Hashtags & Tags */
 .hashtag {
-  margin: 0px 3px;
-}
-
-.create-post {
-  width: 90%;
-  margin: 2rem auto;
+  @apply mx-1;
 }
 
 .tags {
-  margin-top: 10px;
+  @apply mt-2;
 }
 
 .tag {
-  display: inline-block;
-  background-color: #f1f1f1;
-  color: #333;
-  padding: 5px 10px;
-  margin-right: 5px;
-  border-radius: 5px;
+  @apply inline-block bg-gray-200 text-gray-800 py-2 px-4 mr-2 mb-2 rounded-full;
 }
 
 .post-image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
+  @apply max-w-full h-auto mt-2;
 }
 
+.create-post {
+  @apply w-11/12 mx-auto my-8;
+}
+
+/* Logo with Tagline */
 .taglinelogo {
-  display: block;
-  max-width: 150px; /* Adjust as needed */
-  height: auto;
-  margin: 1rem auto;
+  @apply block max-w-xs h-auto mx-auto my-4;
 }
 
-/* ========== MODAL STYLES ========== */
+/* ========== MODAL ========== */
 .modal-overlay {
-  background-color: lightgray;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50;
 }
 
 .modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  color: #333;
+  @apply bg-white p-6 rounded-xl w-full max-w-md text-gray-800;
 }
 
 /* ========== BUTTONS ========== */
 button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  @apply bg-blue-600 text-white border-none py-2 px-6 rounded-lg cursor-pointer transition-all;
 }
 
 button:hover {
-  background-color: #0056b3;
+  @apply bg-blue-700 shadow-lg translate-y-0.5;
 }
 
-/* ========== HEADER NAV ========== */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.d-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 20px;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-link:hover {
-  background-color: #555;
-}
-
+/* Auth buttons section */
 .text-end {
-  display: flex;
-  gap: 10px;
+  @apply flex gap-3;
 }
 
 .text-end button {
-  font-size: 1rem;
-  padding: 8px 16px;
+  @apply text-base py-2 px-4;
+}
+
+/* ========== NAVIGATION ========== */
+.container {
+  @apply max-w-7xl mx-auto px-5;
+}
+
+.d-flex {
+  @apply flex justify-between items-center flex-wrap;
+}
+
+.nav {
+  @apply list-none p-0 m-0 flex gap-5;
+}
+
+.nav-link {
+  @apply text-white text-base py-2 px-4 rounded-lg;
+}
+
+.nav-link:hover {
+  @apply bg-gray-600;
 }
 
 /* ========== FOOTER ========== */
 footer {
-  background-color: #f8f9fa;
-  padding: 2rem 1rem;
-  border-top: 1px solid #dee2e6;
-  text-align: center;
+  @apply bg-gray-100 py-8 text-center border-t border-gray-300;
 }
 
 footer .nav {
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
+  @apply flex flex-wrap gap-2 justify-center;
 }
 
 footer .nav-link {
-  color: #6c757d;
-  font-size: 0.9rem;
+  @apply text-gray-600 text-sm;
 }
 
 footer .nav-link:hover {
-  color: #343a40;
-  text-decoration: underline;
+  @apply text-gray-900 underline;
 }
 
 footer .text-muted {
-  font-size: 0.85rem;
-  color: #6c757d;
+  @apply text-sm text-gray-600;
 }
 
 footer button.btn-sm {
-  margin-top: 0.5rem;
+  @apply mt-2;
 }
 
-/* ========== RESPONSIVE STYLES ========== */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  .sidebar {
-    transform: translateX(-100%);
-    position: fixed;
-    height: 100%;
-    z-index: 1000;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .sidebar .close-btn {
-    display: block;
-  }
-
-  .content {
-    margin-left: 0;
-    padding: 1rem;
-  }
-
-  .post-card,
-  .card-body,
-  .create-post {
-    width: 95%;
-    margin: 1rem auto;
-  }
-
-  .taglinelogo {
-    width: 4.5rem;
-    margin: 0.5rem auto;
-  }
-
-  footer .nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  footer button {
-    width: 100%;
-    max-width: 200px;
-  }
-}
-
+/* ========== RESPONSIVE TWEAKS ========== */
 @media (max-width: 480px) {
   .nav-link,
   .text-end button {
-    font-size: 0.9rem;
-    padding: 10px 20px;
+    @apply text-sm py-2 px-5;
   }
+}
+
+/* ========== ANIMATIONS ========== */
+.post-card.fade-in {
+  @apply opacity-100 scale-100 transition duration-500 ease-in;
+}
+
+.post-card.removing {
+  @apply opacity-0 scale-95;
 }

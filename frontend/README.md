@@ -1,29 +1,11 @@
 # SilentPost – Frontend
 
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" style="width: 25%;height: 25%"/>
-  </a>
-</p>
-
-<p align="center">
-  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
-  <br />
-  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
-  <br />
-  <br />
-</p>
+  <div align="center"> <a href="https://silentpost-client.vercel.app/"> <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" width="200" /> </a> <p> A secure, anonymous social media platform frontend built with React, Bootstrap, and Vite. </p>
+<a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
 
 </div>
 
 ---
-
-<p align="center">
-User Interface
-<br />
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost ScreenShot" />
-  </a>
-</p>
 
 <br />
 <div align="center">
@@ -37,8 +19,8 @@ SilentPost is a social media platform that allows users to share posts anonymous
 ## 🛠️ Frontend Tech Stack
 
 - ⚛️ **React.js**
-- 🎨 **CSS**
-- 🧰 **Bootstrap**
+- 🧰 **CSS** + **Bootstrap**
+- 🎨 **TailWind CSS**
 - 🛣️ **React Router**
 - 🌐 **Axios** – for backend API requests
 - 🗂️ **Context API + Reducer** – for state management
@@ -49,7 +31,7 @@ SilentPost is a social media platform that allows users to share posts anonymous
 ## 📸 Preview
 
 <p align="center">
-  <img src="assets/ui-screenshot.png" alt="SilentPost UI Preview" width="80%" />
+  <img src="assets/silentpost.png" alt="SilentPost UI Preview" width="80%" />
 </p>
 
 ---
@@ -67,8 +49,54 @@ SilentPost is a social media platform that allows users to share posts anonymous
 
 ## 📁 Folder Structure
 
-frontend/ ├── public/ ├── src/ │ ├── assets/ │ ├── components/ │ │ ├── Header.jsx │ │ ├── Sidebar.jsx │ │ ├── Footer.jsx │ │ └── Post.jsx │ ├── context/ │ │ ├── AuthContext.jsx │ │ ├── PostContext.jsx │ │ └── reducer.js │ ├── pages/ │ │ ├── Home.jsx │ │ ├── Login.jsx │ │ ├── Signup.jsx │ │ └── CreatePost.jsx │ ├── App.jsx │ ├── main.jsx │ └── app.css ├── .env ├── index.html └── vite.config.js
+frontend/
+├── public/
+├── src/
+│   ├── api/
+│   │   └── userApi.js
+│   ├── assets/
+│   ├── components/
+│   │   ├── ConfirmModal.jsx
+│   │   ├── CreatePost.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── Post.jsx
+│   │   ├── PostList.jsx
+│   │   ├── RedirectWithState.jsx
+│   │   ├── RequireAuth.jsx
+│   │   └── Sidebar.jsx
+│   ├── pages/
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── CreatePost.jsx
+│   │   ├── Login.jsx
+│   │   ├── Profile.jsx
+│   │   └── Signup.jsx
+│   ├── store/
+│   │   ├── AuthContext.jsx
+│   │   ├── post-list-store.js
+│   ├── styles/
+│   │   └── App.css
+│   ├── App.jsx
+│   ├── AppRoutes.jsx
+│   ├── ErrorBoundary.jsx
+│   └── main.jsx
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+└── README.md
 
+
+---
+
+## 🌐 Live Links
+
+- 🔗 Frontend: [silentpost-client.vercel.app](https://silentpost-client.vercel.app)
+- 🔗 Backend API: [silentpost-server.onrender.com](https://silentpost-server.onrender.com)
 
 ---
 
@@ -112,10 +140,12 @@ This will generate a dist/ folder with optimized production-ready static files. 
 🔙 Backend API: silentpost-server.onrender.com
 
 📬 Contact the Developer
-Sayan Kundu
-📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
-💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
-🐱 [GitHub](https://github.com/sayank22)
+👨‍💻 Sayan Kundu
 
+📧 sayank10023@gmail.com
 
-Designed & Developed with ❤️ by Sayan Kundu
+💼 LinkedIn
+
+🐙 GitHub
+
+<div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>

@@ -1,29 +1,12 @@
 # SilentPost – Social-Media
 
-<a href="https://silentpost-client.vercel.app/">
-    <img src="./frontend/src/assets/tagline.png" alt="SilentPost Logo" style="width: 25%;height: 25%"/>
-  </a>
-</p>
-
-<p align="center">
-  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
-  <br />
-  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
-   <br />
-  <br />
-</p>
+<div align="center"> <a href="https://silentpost-client.vercel.app/"> <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" width="200" /> </a> <p> A secure, anonymous social media platform frontend built with React, Bootstrap, and Vite. </p>
+<a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
 
 </div>
 
 ---
 
-<p align="center">
-User Interface
-<br />
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="./frontend/src/assets/silentpost.png" alt="SilentPost ScreenShot" />
-  </a>
-</p>
 <br />
 <div align="center">
 
@@ -38,6 +21,7 @@ SilentPost is a social media platform that allows users to share posts anonymous
 **Frontend:**
 - React
 - CSS
+- Tailwind CSS
 - Bootstrap
 - React Router
 - Axios
@@ -61,6 +45,14 @@ SilentPost is a social media platform that allows users to share posts anonymous
 - 🧠 Anonymous Posting System
 - 📱 Fully Responsive UI (mobile + desktop)
 - 🛣️ Protected Routes and State Management
+
+---
+
+## 📸 Preview
+
+<p align="center">
+  <img src="assets/silentpost.png" alt="SilentPost UI Preview" width="80%" />
+</p>
 
 ---
 
@@ -134,11 +126,15 @@ Toggle reaction on any post
 View your own posts via user-based API
 
 👨‍💻 About the Developer
-Sayan Kundu – A final-year CSE student from Netaji Subhash Engineering College, passionate about building meaningful full-stack applications and exploring modern web technologies.
+Sayan Kundu – A final-year CSE student, passionate about building meaningful full-stack applications and exploring modern web technologies.
 
 📬 Contact the Developer
-Sayan Kundu
-📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
-💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
-🐱 [GitHub](https://github.com/sayank22)
+👨‍💻 Sayan Kundu
 
+📧 sayank10023@gmail.com
+
+💼 LinkedIn
+
+🐙 GitHub
+
+<div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>

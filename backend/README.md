@@ -1,31 +1,21 @@
 # SilentPost – Backend
 
-<a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" style="width: 25%;height: 25%"/>
-  </a>
-</p>
-
-<p align="center">
-  A secure, anonymous social media platform backend built with Node.js, Express, and MongoDB.
-  <br />
-  <a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
-   <br />
-  <br />
-</p>
+<div align="center"> <a href="https://silentpost-client.vercel.app/"> <img src="../frontend/src/assets/tagline.png" alt="SilentPost Logo" width="200" /> </a> <p> A secure, anonymous social media platform frontend built with React, Bootstrap, and Vite. </p>
+<a href="https://github.com/sayank22/social-media"><strong>Explore the Docs »</strong></a>
 
 </div>
 
 ---
 
+## 📸 Preview
+
 <p align="center">
-User Interface
-<br />
-  <a href="https://silentpost-client.vercel.app/">
-    <img src="../frontend/src/assets/silentpost.png" alt="SilentPost ScreenShot" />
-  </a>
+  <img src="../frontend/src/assets/silentpost.png" alt="SilentPost UI Preview" width="80%" />
 </p>
-<br />
-<div align="center">
+
+---
+
+
 
 ## 📝 About SilentPost
 
@@ -56,6 +46,13 @@ SilentPost is a social media platform that allows users to share posts anonymous
 
 backend/ ├── controllers/ │ ├── postController.js │ └── userController.js ├── middleware/ │ └── authMiddleware.js ├── models/ │ ├── postModel.js │ └── user.js ├── routes/ │ ├── postRoutes.js │ └── userRoutes.js ├── .env ├── app.js └── server.js
 
+
+---
+
+## 🌐 Live Links
+
+- 🔗 Frontend: [silentpost-client.vercel.app](https://silentpost-client.vercel.app)
+- 🔗 Backend API: [silentpost-server.onrender.com](https://silentpost-server.onrender.com)
 
 ---
 
@@ -113,10 +110,12 @@ Sayan Kundu – A 23-year-old CSE student from Netaji Subhash Engineering Colleg
 
 
 📬 Contact the Developer
-Sayan Kundu
-📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
-💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6)  
-🐱 [GitHub](https://github.com/sayank22)
+👨‍💻 Sayan Kundu
 
+📧 sayank10023@gmail.com
 
-Backend designed and built with by Sayan Kundu
+💼 LinkedIn
+
+🐙 GitHub
+
+<div align="center"> Designed & Developed with ❤️ by Sayan Kundu </div>

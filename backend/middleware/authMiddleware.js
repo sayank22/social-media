@@ -16,7 +16,6 @@ export const verifyToken = (req, res, next) => {
     
     // Logging decoded user info (in development, ensure this is removed in production)
     if (process.env.NODE_ENV !== "production") {
-      console.log("✅ Decoded user:", decoded); 
     }
 
     // Set userId in the request object for use in routes
@@ -35,7 +34,6 @@ export const verifyToken = (req, res, next) => {
     }
 
     // Handle other JWT errors
-    console.error("❌ Token verification error:", err);
     return res.status(500).json({ message: "Server error: Failed to verify token" });
   }
 };

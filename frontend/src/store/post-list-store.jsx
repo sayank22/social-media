@@ -13,7 +13,6 @@ export const PostListContext = createContext({
   error: null,
   isAuthenticated: false,
   addPost: throwError,
-  deletePost: throwError,
   refreshPosts: throwError,
 });
 
@@ -24,8 +23,6 @@ const postListReducer = (state, action) => {
       return action.payload;
     case "ADD_POST":
       return [action.payload, ...state]; // Add new post to the top of the list
-    case "DELETE_POST":
-      return state.filter((post) => post._id !== action.payload.postId); // Delete post by ID
     default:
       return state;
   }
@@ -73,7 +70,6 @@ const PostListProvider = ({ children }) => {
       const data = await res.json();
       dispatchPostList({ type: "SET_POSTS", payload: data });
     } catch (err) {
-      console.error("❌ Failed to fetch posts:", err.message);
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -91,11 +87,6 @@ const PostListProvider = ({ children }) => {
     try {
       setError(null);
       const token = getToken();
-      console.log("🧾 Headers:", {
-        Authorization: `Bearer ${token}`,
-      });
-      console.log("🌐 API_BASE:", API_BASE);
-
       if (!token) {
         setError("You must be logged in to add a post.");
         return null;
@@ -126,57 +117,11 @@ const PostListProvider = ({ children }) => {
       dispatchPostList({ type: "ADD_POST", payload: savedPost });
       return savedPost;
     } catch (err) {
-      console.error("❌ Failed to add post:", err.message);
       setError(err.message);
       return null;
     }
   }, []);
 
-  // Function to delete a post
-  const deletePost = useCallback(async (postId) => {
-    try {
-      setError(null);
-      const token = getToken();
-      console.log("🔐 Token used for deletion:", token);
-  
-      if (!token) {
-        toast.error("You must be logged in to delete a post.");
-        setError("You must be logged in to delete a post.");
-        return false;
-      }
-      
-      console.log("📡 Sending DELETE request to:", `${API_BASE}/api/posts/${postId}`);
-      const res = await fetch(`${API_BASE}/api/posts/${postId}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-      });
-      console.log("🧾 Response status:", res.status);
-      if (!res.ok) {
-        if (res.status === 401) {
-          localStorage.removeItem("token");
-          setError("Unauthorized. Please log in.");
-          setIsAuthenticated(false);
-          // Optionally navigate to login page
-          return false;
-        }
-  
-        const errorData = await res.json();
-        console.error("❌ Delete failed with message:", errorData.message);
-        setError(errorData.message || "Failed to delete post");
-        return false;
-      }
-      toast.info("🗑️ Post has been deleted.");
-      console.log("✅ Post deleted successfully:", postId);
-      dispatchPostList({ type: "DELETE_POST", payload: { postId } });
-      // Optionally add a success message here, like a toast
-      return true;
-    } catch (err) {
-      console.error("❌ Failed to delete post:", err.message);
-      setError(err.message);
-      return false;
-    }
-  }, []);
-  
   return (
     <PostListContext.Provider
       value={{
@@ -185,7 +130,6 @@ const PostListProvider = ({ children }) => {
         error,
         isAuthenticated,
         addPost,
-        deletePost,
         refreshPosts: fetchPosts, // Allow manual refresh
       }}
     >

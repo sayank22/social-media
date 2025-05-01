@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
       setToken(storedToken);
       setUser(JSON.parse(storedUser));
       setIsLoggedIn(true);
-      console.log("✅ AuthContext initialized from localStorage");
     }
   }, []);
   

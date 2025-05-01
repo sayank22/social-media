@@ -1,18 +1,20 @@
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { AuthContext } from "../store/AuthContext";
+import RedirectWithState from "./RedirectWithState";
+import { useLocation } from "react-router-dom";
 
-const RequireAuth = ({ children }) => {
-  const { isLoggedIn } = useContext(AuthContext);
+function RequireAuth({ children }) {
+  const token = localStorage.getItem("token");
+  const location = useLocation();
 
-  if (!isLoggedIn) {
-    toast.warn("Please login to create a post ✋");
-    localStorage.setItem("redirectAfterLogin", "/createpost");
-    return <Navigate to="/login" replace />;
+  if (!token) {
+    return (
+      <RedirectWithState
+        to="/login"
+        state={{ from: location.pathname, showLoginMessage: true }}
+      />
+    );
   }
 
   return children;
-};
+}
 
 export default RequireAuth;

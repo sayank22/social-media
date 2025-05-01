@@ -1,44 +1,47 @@
+// Sidebar.jsx
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import logo from "../assets/logo.png";
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onFeaturesClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn } = useContext(AuthContext);
 
   const handleCreatePostClick = () => {
     if (!isLoggedIn) {
-      localStorage.setItem("redirectAfterLogin", "/createpost");
-      navigate("/login");
+      navigate("/login", {
+        state: { from: "/createpost", showLoginMessage: true }
+      });
     } else {
       navigate("/createpost");
     }
-    if (toggleSidebar) toggleSidebar(); // close after click on small screen
+    toggleSidebar?.();
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
-      <button className="close-btn" onClick={toggleSidebar}>✕</button>
+      <button className="close-btn d-md-none" onClick={toggleSidebar}>✕</button>
       <img src={logo} alt="SilentPost Logo" className="logo" />
       <hr />
-      <ul className="nav nav-pills flex-column mb-auto">
-        <li className="nav-item" onClick={() => { navigate("/"); toggleSidebar(); }}>
-          <span
-            role="button"
-            className={`nav-link text-white ${location.pathname === "/" ? "active" : ""}`}
-          >
-            Home
-          </span>
+      <ul className="nav nav-pills flex-column mb-auto text-white space-y-4 mt-4 px-4">
+        <li onClick={() => { navigate("/"); toggleSidebar?.(); }}>
+          <span className={`nav-link ${isActive("/") ? "active" : ""}`}>🏠 Home</span>
         </li>
+
         <li onClick={handleCreatePostClick}>
-          <span
-            role="button"
-            className={`nav-link text-white ${location.pathname === "/createpost" ? "active" : ""}`}
-          >
-            Create Post
-          </span>
+          <span className={`nav-link ${isActive("/createpost") ? "active" : ""}`}>✍️ Create Post</span>
+        </li>
+
+        <li onClick={() => { onFeaturesClick(); toggleSidebar?.(); }}>
+          <span className="nav-link">✨ Features</span>
+        </li>
+
+        <li onClick={() => { navigate("/about"); toggleSidebar?.(); }}>
+          <span className={`nav-link ${isActive("/about") ? "active" : ""}`}>ℹ️ About</span>
         </li>
       </ul>
     </div>

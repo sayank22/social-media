@@ -35,7 +35,6 @@ function PostList() {
   return (
     <div className="container mt-4">
       {postList.map((post) => (
-        console.log("📝 Rendering post:", post.title),
         <Post key={post._id} post={post} /> // 👈 reuse Post component
       ))}
     </div>

@@ -27,7 +27,6 @@ export const createPost = async (req, res) => {
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
   } catch (err) {
-    console.error(err);
     sendErrorResponse(res, "Failed to create post");
   }
 };
@@ -106,7 +105,6 @@ export const toggleReaction = async (req, res) => {
       reacted: !hasReacted,
     });
   } catch (err) {
-    console.error("❌ Toggle reaction error:", err);
     res.status(500).json({ message: "Failed to toggle reaction", error: err.message });
   }
 };

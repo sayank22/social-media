@@ -1,16 +1,20 @@
+// Header.jsx
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useContext, useState } from "react";
 import { AuthContext } from "../store/AuthContext";
+import Sidebar from "./Sidebar";
 import Modal from "react-modal";
 
 const Header = () => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const handleLogout = () => {
     logout();
@@ -19,82 +23,80 @@ const Header = () => {
   };
 
   return (
-    <header className="p-3 header">
-      <div className="container">
-        <div className="d-flex flex-column flex-sm-row flex-wrap align-items-center justify-content-between">
-          {/* Logo and Navigation */}
-          <div className="d-flex flex-column flex-sm-row align-items-center">
-            <a
-              href="/"
-              className="d-flex align-items-center mb-2 mb-sm-0 text-white text-decoration-none"
+    <header className="bg-[rgba(34,34,34,0.85)] text-white px-4 py-3 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Left: Hamburger + Logo */}
+        <div className="flex items-center gap-3">
+          <button className="text-2xl" onClick={toggleSidebar}>
+            ☰
+          </button>
+          <h1
+            className="text-xl font-bold cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            SilentPost
+          </h1>
+        </div>
+
+        {/* Right: Auth */}
+        <div className="flex gap-3 items-center">
+          {isLoggedIn ? (
+            <button
+              className="border border-white px-4 py-1 rounded hover:bg-white hover:text-gray-900 transition"
+              onClick={handleLogout}
             >
-              <h4 className="m-0">SilentPost</h4>
-            </a>
-
-            <ul className="nav ms-sm-4 mb-2 mb-sm-0">
-              <li>
-                <button className="nav-link btn btn-link text-white" onClick={openModal}>
-                  Features
-                </button>
-              </li>
-              <li>
-                <button
-                  className="nav-link btn btn-link text-white"
-                  onClick={() => navigate("/about")}
-                >
-                  About
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Auth Buttons */}
-          <div className="text-end mt-2 mt-sm-0">
-            {isLoggedIn ? (
-              <button className="btn btn-outline-light" onClick={handleLogout}>
-                Logout
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                className="border border-white px-4 py-1 rounded hover:bg-white hover:text-gray-900 transition"
+                onClick={() => navigate("/login")}
+              >
+                Login
               </button>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-outline-light me-2"
-                  onClick={() => navigate("/login")}
-                >
-                  Login
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                  onClick={() => navigate("/signup")}
-                >
-                  Sign-up
-                </button>
-              </>
-            )}
-          </div>
+              <button
+                className="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 transition"
+                onClick={() => navigate("/signup")}
+              >
+                Sign-up
+              </button>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Sidebar now handles About & Features */}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        onFeaturesClick={openModal}
+      />
+
+      {/* Features Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Features Modal"
-        className="modal-content"
-        overlayClassName="modal-overlay"
+        className="bg-white p-6 rounded-lg w-[90%] max-w-md mx-auto mt-20 text-gray-800"
+        overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center"
       >
-        <h2>✨ Features of Our Social Media - SilentPost🤐🤫</h2>
-        <ul>
+        <h2 className="text-2xl font-bold mb-4">✨ Features of SilentPost 🤐🤫</h2>
+        <ul className="list-disc pl-5 space-y-2 text-left">
           <li>💬 See Anonymous Posts</li>
-          <li>🔓🔑 No login required to view posts</li>
+          <li>🔓 No login required to view posts</li>
           <li>📜 Create Posts With or Without Photo</li>
           <li>❤️ React to Posts</li>
           <li>📤 SignUp & Login to Create and React</li>
           <li>👤 View Profile</li>
-          <li>🔒 Secure Login and Authentication</li>
+          <li>🔒 Secure Authentication</li>
         </ul>
-        <button onClick={closeModal}>Close</button>
+        <button
+          onClick={closeModal}
+          className="mt-6 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+        >
+          Close
+        </button>
       </Modal>
     </header>
   );

@@ -31,14 +31,15 @@ function Signup() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Signup</h2>
+    <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto p-4 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold text-center mb-6">Signup</h2>
       <input
         type="text"
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
+        className="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       />
       <input
         type="email"
@@ -46,6 +47,7 @@ function Signup() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
+        className="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       />
       <input
         type="password"
@@ -53,8 +55,12 @@ function Signup() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
+        className="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       />
-      <button type="submit">Signup</button>
+      <button type="submit"
+      className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        Signup
+        </button>
     </form>
   );
 }
