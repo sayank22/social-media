@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx", // or "react" for React 16
+    "target": "ES6",
+    "moduleResolution": "node",
+    "strict": true, // Optional but recommended for type safety
+    "module": "ESNext",
+    "esModuleInterop": true
+  }
+}

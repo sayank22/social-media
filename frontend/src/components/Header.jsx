@@ -1,10 +1,10 @@
 // Header.jsx
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useContext, useState } from "react";
-import { AuthContext } from "../store/AuthContext";
-import Sidebar from "./Sidebar";
-import Modal from "react-modal";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../store/AuthContext';
+import Sidebar from './Sidebar';
+import Modal from 'react-modal';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    toast.success("👋 Logged out successfully!");
-    navigate("/login");
+    toast.success('👋 Logged out successfully!');
+    navigate('/login');
   };
 
   return (
@@ -32,7 +32,7 @@ const Header = () => {
           </button>
           <h1
             className="text-base sm:text-xl font-bold cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => navigate('/')}
           >
             SilentPost
           </h1>
@@ -51,13 +51,13 @@ const Header = () => {
             <>
               <button
                 className="border border-white text-sm px-2 sm:px-4 py-1 rounded hover:bg-white hover:text-gray-900 transition"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate('/login')}
               >
                 Login
               </button>
               <button
                 className="bg-yellow-400 text-sm px-2 sm:px-4 py-1 rounded hover:bg-yellow-300 transition text-black"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate('/signup')}
               >
                 Sign-up
               </button>
@@ -81,7 +81,9 @@ const Header = () => {
         className="bg-white p-6 rounded-lg w-[90%] max-w-md mx-auto mt-20 text-gray-800"
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center"
       >
-        <h2 className="text-2xl font-bold mb-4">✨ Features of SilentPost 🤐🤫</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          ✨ Features of SilentPost 🤐🤫
+        </h2>
         <ul className="list-disc pl-5 space-y-2 text-left">
           <li>💬 See Anonymous Posts</li>
           <li>🔓 No login required to view posts</li>

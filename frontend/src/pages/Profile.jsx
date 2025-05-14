@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../store/AuthContext";
-import axios from "axios";
-import { MdDeleteForever } from "react-icons/md"; 
-import { toast } from "react-toastify";
-import ConfirmModal from "../components/ConfirmModal.jsx";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../store/AuthContext';
+import axios from 'axios';
+import { MdDeleteForever } from 'react-icons/md';
+import { toast } from 'react-toastify';
+import ConfirmModal from '../components/ConfirmModal.jsx';
 
 const Profile = () => {
   const { user, token } = useContext(AuthContext);
   const [userPosts, setUserPosts] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postToDelete, setPostToDelete] = useState(null);
 
@@ -19,12 +19,12 @@ const Profile = () => {
           `https://silentpost-server.onrender.com/api/posts/user/${user._id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
         setUserPosts(res.data.posts);
       } catch (err) {
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -33,7 +33,7 @@ const Profile = () => {
 
   const confirmDelete = (postId) => {
     setPostToDelete(postId); // Set the post to be deleted
-    setShowModal(true);      // Show the modal
+    setShowModal(true); // Show the modal
   };
 
   const handleDeletePost = async () => {
@@ -42,14 +42,12 @@ const Profile = () => {
         `https://silentpost-server.onrender.com/api/posts/${postToDelete}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
-      setUserPosts((prev) =>
-        prev.filter((post) => post._id !== postToDelete)
-      );
-      toast.success("🗑️ Post deleted successfully!");
+      setUserPosts((prev) => prev.filter((post) => post._id !== postToDelete));
+      toast.success('🗑️ Post deleted successfully!');
     } catch (err) {
-      toast.error("❌ Failed to delete post.");
+      toast.error('❌ Failed to delete post.');
     } finally {
       setShowModal(false);
       setPostToDelete(null);
@@ -79,7 +77,7 @@ const Profile = () => {
               <div
                 key={post._id}
                 className="card mb-3 p-3 post-card relative"
-                style={{ position: "relative" }}
+                style={{ position: 'relative' }}
               >
                 <h5>{post.title}</h5>
                 <p>{post.body}</p>
