@@ -1,21 +1,22 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import RequireAuth from "./components/RequireAuth";
-import ErrorBoundary from "./ErrorBoundary";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import RequireAuth from './components/RequireAuth';
+import ErrorBoundary from './ErrorBoundary';
 
 // Pages
-import PostList from "./components/PostList";
-import CreatePost from "./components/CreatePost";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import { InfinitePosts } from './components/posts';
+import CreatePost from './components/CreatePost';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import PostList from './components/PostList';
+import { AuthTabs } from './components/authsection';
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<PostList />} />
-
+      <Route path="/" element={<InfinitePosts />} />
       <Route
         path="/createpost"
         element={
@@ -29,7 +30,7 @@ function AppRoutes() {
         path="/login"
         element={
           <ErrorBoundary>
-            <Login />
+            <AuthTabs />
           </ErrorBoundary>
         }
       />
