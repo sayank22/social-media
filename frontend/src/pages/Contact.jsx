@@ -1,5 +1,5 @@
-import React from "react";
-import { FaEnvelope, FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";  // Importing Instagram icon
+import React from 'react';
+import { FaEnvelope, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'; // Importing Instagram icon
 
 const Contact = () => {
   return (
@@ -7,14 +7,15 @@ const Contact = () => {
       <h1 className="text-4xl font-bold mb-6 text-gray-800">Contact Me</h1>
 
       <p className="text-gray-600 mb-10 text-center max-w-md">
-        Feel free to reach out for collaborations, questions, or just to say hi! 🚀
+        Feel free to reach out for collaborations, questions, or just to say hi!
+        🚀
       </p>
 
       {/* Email button */}
       <button
         onClick={() => {
           const gmailUrl = `https://mail.google.com/mail/?view=cm&to=sayank10023@gmail.com`;
-          window.open(gmailUrl, "_blank", "noopener,noreferrer");
+          window.open(gmailUrl, '_blank', 'noopener,noreferrer');
         }}
         className="bg-blue-600 text-white py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition mb-8"
       >

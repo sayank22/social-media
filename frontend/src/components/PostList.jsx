@@ -1,8 +1,7 @@
-
-import React, { useContext } from "react";
-import { PostListContext } from "../store/post-list-store";
-import { Spinner } from "react-bootstrap";
-import Post from "./Post"; // 👈 import Post component
+import React, { useContext } from 'react';
+import { PostListContext } from '../store/post-list-store';
+import { Spinner } from 'react-bootstrap';
+import Post from './Post'; // 👈 import Post component
 
 function PostList() {
   const { postList, loading, error } = useContext(PostListContext);

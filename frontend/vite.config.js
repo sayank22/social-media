@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://silentpost-server.onrender.com'
-    }
-  }
+      '/api': 'https://silentpost-server.onrender.com',
+    },
+  },
 });

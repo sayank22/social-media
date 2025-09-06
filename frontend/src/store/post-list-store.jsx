@@ -1,9 +1,15 @@
-import { createContext, useReducer, useEffect, useState, useCallback } from "react";
+import {
+  createContext,
+  useReducer,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 import { toast } from 'react-toastify';
 
 // Default error thrower for context methods
 const throwError = () => {
-  throw new Error("PostListContext method called outside of provider");
+  throw new Error('PostListContext method called outside of provider');
 };
 
 // Create context for managing posts
@@ -19,9 +25,9 @@ export const PostListContext = createContext({
 // Reducer function to manage post state
 const postListReducer = (state, action) => {
   switch (action.type) {
-    case "SET_POSTS":
+    case 'SET_POSTS':
       return action.payload;
-    case "ADD_POST":
+    case 'ADD_POST':
       return [action.payload, ...state]; // Add new post to the top of the list
     default:
       return state;
@@ -29,10 +35,11 @@ const postListReducer = (state, action) => {
 };
 
 // API config (base URL)
-const API_BASE = import.meta.env.VITE_API_URL || "https://silentpost-server.onrender.com";
+const API_BASE =
+  import.meta.env.VITE_API_URL || 'https://silentpost-server.onrender.com';
 
 // Helper function to retrieve token from localStorage
-const getToken = () => localStorage.getItem("token");
+const getToken = () => localStorage.getItem('token');
 
 // Helper function to build Authorization headers for requests
 const getAuthHeaders = () => {
@@ -59,18 +66,18 @@ const PostListProvider = ({ children }) => {
 
       if (!res.ok) {
         if (res.status === 401) {
-          setError("You are not authorized to view these posts.");
+          setError('You are not authorized to view these posts.');
         } else {
           const errorData = await res.json();
-          setError(errorData.message || "Failed to fetch posts.");
+          setError(errorData.message || 'Failed to fetch posts.');
         }
         return;
       }
 
       const data = await res.json();
-      dispatchPostList({ type: "SET_POSTS", payload: data });
+      dispatchPostList({ type: 'SET_POSTS', payload: data });
     } catch (err) {
-      setError("Network error. Please try again.");
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -88,14 +95,14 @@ const PostListProvider = ({ children }) => {
       setError(null);
       const token = getToken();
       if (!token) {
-        setError("You must be logged in to add a post.");
+        setError('You must be logged in to add a post.');
         return null;
       }
 
       const res = await fetch(`${API_BASE}/api/posts`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           ...getAuthHeaders(),
         },
         body: JSON.stringify(post),
@@ -103,18 +110,18 @@ const PostListProvider = ({ children }) => {
 
       if (!res.ok) {
         if (res.status === 401) {
-          localStorage.removeItem("token");
-          setError("Unauthorized. Please log in.");
+          localStorage.removeItem('token');
+          setError('Unauthorized. Please log in.');
           setIsAuthenticated(false);
           return null;
         }
 
         const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to add post");
+        throw new Error(errorData.message || 'Failed to add post');
       }
 
       const savedPost = await res.json();
-      dispatchPostList({ type: "ADD_POST", payload: savedPost });
+      dispatchPostList({ type: 'ADD_POST', payload: savedPost });
       return savedPost;
     } catch (err) {
       setError(err.message);

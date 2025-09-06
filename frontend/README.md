@@ -44,35 +44,35 @@ SilentPost is a social media platform that allows users to share posts anonymous
 frontend/
 ├── public/
 ├── src/
-│   ├── api/
-│   │   └── userApi.js
-│   ├── assets/
-│   ├── components/
-│   │   ├── ConfirmModal.jsx
-│   │   ├── CreatePost.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Header.jsx
-│   │   ├── Post.jsx
-│   │   ├── PostList.jsx
-│   │   ├── RedirectWithState.jsx
-│   │   ├── RequireAuth.jsx
-│   │   └── Sidebar.jsx
-│   ├── pages/
-│   │   ├── About.jsx
-│   │   ├── Contact.jsx
-│   │   ├── CreatePost.jsx
-│   │   ├── Login.jsx
-│   │   ├── Profile.jsx
-│   │   └── Signup.jsx
-│   ├── store/
-│   │   ├── AuthContext.jsx
-│   │   ├── post-list-store.js
-│   ├── styles/
-│   │   └── App.css
-│   ├── App.jsx
-│   ├── AppRoutes.jsx
-│   ├── ErrorBoundary.jsx
-│   └── main.jsx
+│ ├── api/
+│ │ └── userApi.js
+│ ├── assets/
+│ ├── components/
+│ │ ├── ConfirmModal.jsx
+│ │ ├── CreatePost.jsx
+│ │ ├── Footer.jsx
+│ │ ├── Header.jsx
+│ │ ├── Post.jsx
+│ │ ├── PostList.jsx
+│ │ ├── RedirectWithState.jsx
+│ │ ├── RequireAuth.jsx
+│ │ └── Sidebar.jsx
+│ ├── pages/
+│ │ ├── About.jsx
+│ │ ├── Contact.jsx
+│ │ ├── CreatePost.jsx
+│ │ ├── Login.jsx
+│ │ ├── Profile.jsx
+│ │ └── Signup.jsx
+│ ├── store/
+│ │ ├── AuthContext.jsx
+│ │ ├── post-list-store.js
+│ ├── styles/
+│ │ └── App.css
+│ ├── App.jsx
+│ ├── AppRoutes.jsx
+│ ├── ErrorBoundary.jsx
+│ └── main.jsx
 ├── .env
 ├── .gitignore
 ├── index.html
@@ -81,7 +81,6 @@ frontend/
 ├── tailwind.config.js
 ├── vite.config.js
 └── README.md
-
 
 ---
 
@@ -134,8 +133,9 @@ This will generate a dist/ folder with optimized production-ready static files. 
 📬 Contact the Developer
 👨‍💻 Sayan Kundu
 
-📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)  
-💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)  
-🐙 [GitHub](https://github.com/sayank22)  
+📧 [sayank10023@gmail.com](mailto:sayank10023@gmail.com)
+💼 [LinkedIn](https://www.linkedin.com/in/sayan-kundu-70b5442b6/)
+🐙 [GitHub](https://github.com/sayank22)
 
 -- Designed & Developed with ❤️ by Sayan Kundu
+```
